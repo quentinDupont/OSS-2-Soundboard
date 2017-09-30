@@ -1,3 +1,5 @@
 <resources>
-    <string name="app_name">OSS117Soundboard</string>
+    <string name="app_name">OSS117 Soundboard 2</string>
+    <string name="search_reply">Rechercher une réplique...</string>
+    <string name="listen">Écouter</string>
 </resources>
