@@ -1,5 +1,13 @@
 <resources>
     <string name="app_name">OSS117 Soundboard 2</string>
-    <string name="search_reply">Rechercher une réplique...</string>
+    <string name="search_reply">Rechercher une réplique…</string>
     <string name="listen">Écouter</string>
+    <string name="favorite">Favori</string>
+    <string name="no_reply_available_no_text">Chou blanc donc…</string>
+    <string name="favorite_list_title">Favoris</string>
+    <string name="reply_list_title">Répliques</string>
+
+    <!-- Replies names and description -->
+    <string name="cestgentil_title">C\'est gentil</string>
+    <string name="cestgentil_desc">C\'est gentil…</string>
 </resources>

@@ -21,4 +21,9 @@ public class ReplyViewModel {
     public String getFormattedDescription(){
         return String.format("%1$s%2$s%3$s", "\"", reply.getDescription(), "\"");
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        return obj instanceof ReplyViewModel && ((ReplyViewModel) obj).getReply().equals(this.getReply());
+    }
 }

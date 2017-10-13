@@ -28,8 +28,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/search_result_text_margin"
-            android:ellipsize="middle"
-            android:maxLines="2"
+            android:ellipsize="end"
+            android:maxLines="3"
             android:paddingEnd="@dimen/card_view_padding"
             android:paddingStart="@dimen/card_view_padding"
             android:textAppearance="@style/TextAppearance.AppCompat.Caption"
@@ -43,23 +43,31 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingBottom="@dimen/card_view_padding"
             android:paddingEnd="@dimen/card_view_padding"
             android:paddingStart="@dimen/card_view_padding">
+
+
             <Button
                 android:id="@+id/reply_search_result_view_holder_listen_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="@dimen/button_margin"
                 android:background="@null"
+                android:drawableStart="@drawable/ic_listen"
                 android:text="@string/listen" />
 
-            <ImageView
+            <Button
+                android:id="@+id/reply_search_result_view_holder_favorite_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="@dimen/button_margin"
+                android:layout_centerVertical="true"
                 android:layout_toStartOf="@id/reply_search_result_view_holder_listen_button"
-                android:src="@drawable/ic_listen" />
+                android:background="@null"
+                android:drawableStart="@drawable/ic_favorite_off"
+                android:text="@string/favorite" />
+
         </RelativeLayout>
     </LinearLayout>
 

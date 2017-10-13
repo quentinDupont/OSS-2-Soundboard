@@ -7,7 +7,7 @@ import javax.inject.Inject;
 import fr.legrand.oss117soundboard.R;
 import fr.legrand.oss117soundboard.presentation.di.PerActivity;
 import fr.legrand.oss117soundboard.presentation.ui.activity.BaseActivity;
-import fr.legrand.oss117soundboard.presentation.ui.fragment.HomeFragment;
+import fr.legrand.oss117soundboard.presentation.ui.fragment.ReplyListFragment;
 
 /**
  * Created by Benjamin on 30/09/2017.
@@ -47,7 +47,4 @@ public class MainNavigator implements BaseNavigator {
 
     }
 
-    public void displayHomeFragment() {
-        fragmentManager.beginTransaction().replace(R.id.activity_main_fragment_container, HomeFragment.newInstance()).commit();
-    }
 }

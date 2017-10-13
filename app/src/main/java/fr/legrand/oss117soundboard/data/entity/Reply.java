@@ -1,13 +1,40 @@
 package fr.legrand.oss117soundboard.data.entity;
 
+import com.raizlabs.android.dbflow.annotation.Column;
+import com.raizlabs.android.dbflow.annotation.PrimaryKey;
+import com.raizlabs.android.dbflow.annotation.Table;
+import com.raizlabs.android.dbflow.structure.BaseModel;
+
+import fr.legrand.oss117soundboard.data.manager.db.DatabaseManager;
+
 /**
  * Created by Benjamin on 30/09/2017.
  */
+@Table(database = DatabaseManager.class)
+public class Reply extends BaseModel {
 
-public class Reply {
+    @Column
+    @PrimaryKey
     private int id;
+
+    @Column
     private String name;
+
+    @Column
     private String description;
+
+    @Column
+    private boolean favorite;
+
+    public Reply(int id, String name, String description) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.favorite = false;
+    }
+
+    public Reply() {
+    }
 
     public int getId() {
         return id;
@@ -32,4 +59,19 @@ public class Reply {
     public void setDescription(String description) {
         this.description = description;
     }
+
+    public boolean isFavorite() {
+        return favorite;
+    }
+
+    public void setFavorite(boolean favorite) {
+        this.favorite = favorite;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        return o instanceof Reply && ((Reply) o).getId() == this.id;
+    }
+
+
 }

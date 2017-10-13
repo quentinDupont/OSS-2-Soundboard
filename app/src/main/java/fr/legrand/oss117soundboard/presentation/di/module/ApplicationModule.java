@@ -9,10 +9,12 @@ import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
+import fr.legrand.oss117soundboard.data.manager.db.DatabaseManager;
+import fr.legrand.oss117soundboard.data.manager.db.DatabaseManagerImpl;
 import fr.legrand.oss117soundboard.data.manager.sharedpref.SharedPrefManager;
 import fr.legrand.oss117soundboard.data.manager.sharedpref.SharedPrefManagerImpl;
-import fr.legrand.oss117soundboard.data.manager.sound.SoundFileManager;
-import fr.legrand.oss117soundboard.data.manager.sound.SoundFileManagerImpl;
+import fr.legrand.oss117soundboard.data.manager.file.FileManager;
+import fr.legrand.oss117soundboard.data.manager.file.FileManagerImpl;
 import fr.legrand.oss117soundboard.data.repository.ContentRepository;
 import fr.legrand.oss117soundboard.data.repository.ContentRepositoryImpl;
 import fr.legrand.oss117soundboard.presentation.OSSApplication;
@@ -43,7 +45,7 @@ public class ApplicationModule {
 
     @Provides
     @Singleton
-    SoundFileManager soundFileManager(SoundFileManagerImpl soundFileManagerImpl) {
+    FileManager soundFileManager(FileManagerImpl soundFileManagerImpl) {
         return soundFileManagerImpl;
     }
 
@@ -51,6 +53,12 @@ public class ApplicationModule {
     @Singleton
     SharedPrefManager sharedPrefManager(SharedPrefManagerImpl sharedPrefManagerImpl) {
         return sharedPrefManagerImpl;
+    }
+
+    @Provides
+    @Singleton
+    DatabaseManager databaseManager(DatabaseManagerImpl databaseManager) {
+        return databaseManager;
     }
 
     @Provides
