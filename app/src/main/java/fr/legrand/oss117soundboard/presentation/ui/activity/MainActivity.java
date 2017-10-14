@@ -39,13 +39,13 @@ public class MainActivity extends BaseActivity implements MainView {
     @BindView(R.id.reply_view_pager)
     ViewPager replyViewPager;
 
-    @BindView(R.id.fragment_home_toolbar_layout_base)
+    @BindView(R.id.activity_main_toolbar_layout_base)
     RelativeLayout toolbarBaseLayout;
-    @BindView(R.id.fragment_home_toolbar_layout_search)
+    @BindView(R.id.activity_main_toolbar_layout_search)
     RelativeLayout toolbarSearchLayout;
-    @BindView(R.id.fragment_home_toolbar_search_view)
+    @BindView(R.id.activity_main_toolbar_search_view)
     SearchView searchView;
-    @BindView(R.id.fragment_home_toolbar_search_back)
+    @BindView(R.id.activity_main_toolbar_search_back)
     ImageView searchBack;
 
     @Override
@@ -102,13 +102,13 @@ public class MainActivity extends BaseActivity implements MainView {
         });
     }
 
-    @OnClick(R.id.fragment_home_search_button)
+    @OnClick(R.id.activity_main_search_button)
     public void searchButtonClicked() {
         initializeSearchView();
         updateToolbarLayout(false);
     }
 
-    @OnClick(R.id.fragment_home_toolbar_search_back)
+    @OnClick(R.id.activity_main_toolbar_search_back)
     public void searchBackClicked() {
         searchView.setOnQueryTextListener(null);
         searchView.setIconified(true);

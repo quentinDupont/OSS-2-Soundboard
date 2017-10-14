@@ -10,18 +10,36 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:animateLayoutChanges="true"
         android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/reply_search_result_view_holder_name"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/search_result_text_margin"
-            android:paddingEnd="@dimen/card_view_padding"
-            android:paddingStart="@dimen/card_view_padding"
-            android:paddingTop="@dimen/card_view_padding"
-            android:text="REPLY TITLE"
-            android:textAppearance="@style/TextAppearance.AppCompat.Title" />
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/reply_search_result_view_holder_name"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/search_result_text_margin"
+                android:layout_weight="7"
+                android:paddingEnd="@dimen/card_view_padding"
+                android:paddingStart="@dimen/card_view_padding"
+                android:paddingTop="@dimen/card_view_padding"
+                android:textAppearance="@style/TextAppearance.AppCompat.Title" />
+
+            <ImageView
+                android:id="@+id/reply_search_result_view_holder_favorite_indicator"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_gravity="center_vertical"
+                android:elevation="@dimen/favorite_indicator_elevation"
+                android:src="@drawable/ic_favorite_on"
+                android:visibility="gone" />
+
+        </LinearLayout>
+
 
         <TextView
             android:id="@+id/reply_search_result_view_holder_description"

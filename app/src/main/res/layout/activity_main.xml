@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:background="@android:color/white">
+
     <android.support.v7.widget.Toolbar
-        android:id="@+id/fragment_home_toolbar"
+        android:id="@+id/activity_main_toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/colorPrimary">
 
         <RelativeLayout
-            android:id="@+id/fragment_home_toolbar_layout_base"
+            android:id="@+id/activity_main_toolbar_layout_base"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginEnd="@dimen/toolbar_item_margin"
@@ -26,7 +27,7 @@
                 android:textColor="@android:color/white" />
 
             <ImageView
-                android:id="@+id/fragment_home_search_button"
+                android:id="@+id/activity_main_search_button"
                 android:layout_width="@dimen/toolbar_item_size"
                 android:layout_height="@dimen/toolbar_item_size"
                 android:layout_alignParentEnd="true"
@@ -35,24 +36,24 @@
         </RelativeLayout>
 
         <RelativeLayout
-            android:id="@+id/fragment_home_toolbar_layout_search"
+            android:id="@+id/activity_main_toolbar_layout_search"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/toolbar_item_margin"
             android:visibility="gone">
 
             <ImageView
-                android:id="@+id/fragment_home_toolbar_search_back"
+                android:id="@+id/activity_main_toolbar_search_back"
                 android:layout_width="@dimen/toolbar_item_size"
                 android:layout_height="@dimen/toolbar_item_size"
                 android:padding="@dimen/toolbar_icon_padding"
                 android:src="@drawable/ic_back" />
 
             <SearchView
-                android:id="@+id/fragment_home_toolbar_search_view"
+                android:id="@+id/activity_main_toolbar_search_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_toEndOf="@id/fragment_home_toolbar_search_back"
+                android:layout_toEndOf="@id/activity_main_toolbar_search_back"
                 android:queryHint="@string/search_reply" />
 
         </RelativeLayout>
@@ -63,16 +64,25 @@
         android:id="@+id/main_tab_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@id/activity_main_toolbar"
         app:tabBackground="@color/colorPrimary"
         app:tabGravity="fill"
+        app:tabIndicatorColor="@android:color/white"
         app:tabMode="fixed"
-        app:tabTextColor="@color/colorPrimaryLight"
-        app:tabIndicatorColor="@color/colorPrimaryLight"
-        app:tabSelectedTextColor="@android:color/white"/>
+        app:tabSelectedTextColor="@android:color/white"
+        app:tabTextColor="@color/colorPrimaryLight" />
+
 
     <android.support.v4.view.ViewPager
         android:id="@+id/reply_view_pager"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:layout_below="@id/main_tab_layout"
+        android:background="@android:color/transparent" />
 
-</LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/shadow_height"
+        android:layout_below="@id/main_tab_layout"
+        android:background="@drawable/shadow" />
+</RelativeLayout>

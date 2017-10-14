@@ -107,6 +107,11 @@ public class ReplyListFragment extends BaseFragment implements ReplyListView, Re
     @Override
     public void updateFavoriteReply(ReplyViewModel replyViewModel) {
         replyListAdapter.updateItem(replyViewModel, getArguments().getBoolean(FAVORITE_KEY));
+        if (replyListAdapter.getItemCount() == 0) {
+            displayPlaceholder();
+        } else {
+            displayReplyList();
+        }
     }
 
     @Override

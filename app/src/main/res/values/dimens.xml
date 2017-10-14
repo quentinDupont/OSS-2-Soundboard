@@ -9,4 +9,7 @@
     <dimen name="card_view_margin_side">8dp</dimen>
     <dimen name="card_view_padding">8dp</dimen>
     <dimen name="search_result_text_margin">8dp</dimen>
+    <dimen name="favorite_indicator_elevation">2dp</dimen>
+    <dimen name="button_margin">8dp</dimen>
+    <dimen name="shadow_height">4dp</dimen>
 </resources>
