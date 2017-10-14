@@ -5,6 +5,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import butterknife.BindView;
@@ -20,18 +21,18 @@ public class ReplyListViewHolder extends RecyclerView.ViewHolder {
 
     @BindView(R.id.reply_search_result_view_holder_name)
     TextView replyName;
-
-    @BindView(R.id.reply_search_result_view_holder_description)
+    @BindView(R.id.reply_view_holder_description)
     TextView replyDescription;
-
-
-    @BindView(R.id.reply_search_result_view_holder_listen_button)
+    @BindView(R.id.reply_view_holder_listen_button)
     Button listenButton;
-
-    @BindView(R.id.reply_search_result_view_holder_favorite_button)
+    @BindView(R.id.reply_view_holder_favorite_button)
     Button favoriteButton;
-    @BindView(R.id.reply_search_result_view_holder_favorite_indicator)
+    @BindView(R.id.reply_view_holder_favorite_indicator)
     ImageView favoriteIndicator;
+    @BindView(R.id.reply_view_holder_description_toggle)
+    ImageView descriptionToggle;
+    @BindView(R.id.reply_view_holder_title_area)
+    LinearLayout titleArea;
 
     private Context context;
 
@@ -51,6 +52,15 @@ public class ReplyListViewHolder extends RecyclerView.ViewHolder {
             favoriteButton.setText(context.getString(R.string.favorite));
             favoriteIndicator.setVisibility(View.GONE);
         }
+        titleArea.setOnClickListener(view -> {
+            if (replyDescription.getVisibility() == View.VISIBLE) {
+                replyDescription.setVisibility(View.GONE);
+                descriptionToggle.setImageResource(R.drawable.ic_toggle_down);
+            } else {
+                replyDescription.setVisibility(View.VISIBLE);
+                descriptionToggle.setImageResource(R.drawable.ic_toggle_up);
+            }
+        });
     }
 
     public void bindListenListener(OnReplyListenListener onReplyListenListener) {
