@@ -8,8 +8,9 @@ import javax.inject.Inject;
 import fr.legrand.oss117soundboard.data.entity.Reply;
 import fr.legrand.oss117soundboard.data.repository.ContentRepository;
 import fr.legrand.oss117soundboard.presentation.component.MediaPlayerComponent;
-import fr.legrand.oss117soundboard.presentation.di.PerActivity;
 import fr.legrand.oss117soundboard.presentation.di.PerFragment;
+import fr.legrand.oss117soundboard.presentation.navigator.listener.BaseNavigatorListener;
+import fr.legrand.oss117soundboard.presentation.navigator.listener.MainNavigatorListener;
 import fr.legrand.oss117soundboard.presentation.ui.view.viewinterface.ReplyListView;
 import fr.legrand.oss117soundboard.presentation.ui.view.viewmodel.ReplyViewModel;
 import io.reactivex.Observer;
@@ -24,12 +25,14 @@ import io.reactivex.schedulers.Schedulers;
 public class ReplyListPresenter implements BasePresenter {
 
     private ReplyListView replyListView;
+    private MainNavigatorListener mainNavigatorListener;
     private ContentRepository contentRepository;
 
     private MediaPlayerComponent mediaPlayerComponent;
 
     @Inject
-    public ReplyListPresenter(ContentRepository contentRepository, MediaPlayerComponent mediaPlayerComponent) {
+    public ReplyListPresenter(BaseNavigatorListener baseNavigatorListener, ContentRepository contentRepository, MediaPlayerComponent mediaPlayerComponent) {
+        this.mainNavigatorListener = (MainNavigatorListener) baseNavigatorListener;
         this.contentRepository = contentRepository;
         this.mediaPlayerComponent = mediaPlayerComponent;
     }
@@ -138,6 +141,7 @@ public class ReplyListPresenter implements BasePresenter {
                     @Override
                     public void onNext(Reply reply) {
                         replyListView.updateFavoriteReply(new ReplyViewModel(reply));
+                        mainNavigatorListener.updateAllLayout();
                     }
 
                     @Override

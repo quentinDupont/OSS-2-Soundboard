@@ -17,6 +17,7 @@ import butterknife.OnClick;
 import fr.legrand.oss117soundboard.R;
 import fr.legrand.oss117soundboard.presentation.adapter.ReplyPagerAdapter;
 import fr.legrand.oss117soundboard.presentation.navigator.MainNavigator;
+import fr.legrand.oss117soundboard.presentation.navigator.listener.MainNavigatorListener;
 import fr.legrand.oss117soundboard.presentation.presenter.MainPresenter;
 import fr.legrand.oss117soundboard.presentation.ui.view.viewinterface.MainView;
 
@@ -24,7 +25,7 @@ import fr.legrand.oss117soundboard.presentation.ui.view.viewinterface.MainView;
  * Created by Benjamin on 30/09/2017.
  */
 
-public class MainActivity extends BaseActivity implements MainView {
+public class MainActivity extends BaseActivity implements MainView, MainNavigatorListener {
 
     @Inject
     MainNavigator mainNavigator;
@@ -92,7 +93,7 @@ public class MainActivity extends BaseActivity implements MainView {
 
             @Override
             public void onPageSelected(int position) {
-                replyPagerAdapter.onSearch(searchView.getQuery().toString());
+                replyPagerAdapter.setCurrentPosition(position);
             }
 
             @Override
@@ -113,8 +114,13 @@ public class MainActivity extends BaseActivity implements MainView {
         searchView.setOnQueryTextListener(null);
         searchView.setIconified(true);
         searchView.clearFocus();
-        replyPagerAdapter.onSearch(null);
+        replyPagerAdapter.onSearch(null, true);
         updateToolbarLayout(true);
+    }
+
+    @Override
+    public void updateAllLayout() {
+        replyPagerAdapter.onSearch(searchView.getQuery().toString(), false);
     }
 
     private void updateToolbarLayout(boolean displayBaseLayout) {
@@ -123,7 +129,6 @@ public class MainActivity extends BaseActivity implements MainView {
     }
 
     private void initializeSearchView() {
-        searchView.setIconified(false);
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String s) {
@@ -133,7 +138,7 @@ public class MainActivity extends BaseActivity implements MainView {
 
             @Override
             public boolean onQueryTextChange(String s) {
-                replyPagerAdapter.onSearch(s);
+                replyPagerAdapter.onSearch(s, true);
                 return true;
             }
         });

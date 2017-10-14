@@ -22,7 +22,7 @@ import butterknife.ButterKnife;
 import fr.legrand.oss117soundboard.R;
 import fr.legrand.oss117soundboard.data.entity.Reply;
 import fr.legrand.oss117soundboard.presentation.adapter.ReplyListAdapter;
-import fr.legrand.oss117soundboard.presentation.listener.OnSearchListener;
+import fr.legrand.oss117soundboard.presentation.ui.listener.OnSearchListener;
 import fr.legrand.oss117soundboard.presentation.presenter.ReplyListPresenter;
 import fr.legrand.oss117soundboard.presentation.ui.view.viewholder.ReplyListViewHolder;
 import fr.legrand.oss117soundboard.presentation.ui.view.viewinterface.ReplyListView;

@@ -12,10 +12,10 @@ import javax.inject.Inject;
 
 import fr.legrand.oss117soundboard.R;
 import fr.legrand.oss117soundboard.presentation.di.PerActivity;
-import fr.legrand.oss117soundboard.presentation.listener.OnSearchListener;
 import fr.legrand.oss117soundboard.presentation.ui.activity.BaseActivity;
 import fr.legrand.oss117soundboard.presentation.ui.fragment.BaseFragment;
 import fr.legrand.oss117soundboard.presentation.ui.fragment.ReplyListFragment;
+import fr.legrand.oss117soundboard.presentation.ui.listener.OnSearchListener;
 
 /**
  * Created by Benjamin on 12/10/2017.
@@ -26,6 +26,8 @@ public class ReplyPagerAdapter extends FragmentStatePagerAdapter {
 
     private static final int FAVORITE_LIST_POSITION = 0;
     private static final int REPLY_LIST_POSITION = 1;
+
+    private int currentPosition;
 
     private List<String> pagerTitles;
     private List<OnSearchListener> searchListenerList;
@@ -70,9 +72,16 @@ public class ReplyPagerAdapter extends FragmentStatePagerAdapter {
         return pagerTitles.get(position);
     }
 
-    public void onSearch(String search) {
-        for (OnSearchListener onSearchListener : searchListenerList) {
-            onSearchListener.onSearch(search);
+    public void onSearch(String search, boolean updateCurrent) {
+        for (int i = 0; i < searchListenerList.size(); i++) {
+            //No need to handle removal from list for now because all fragments are instantiated at the beginning
+            if (i != currentPosition || updateCurrent) {
+                searchListenerList.get(i).onSearch(search);
+            }
         }
+    }
+
+    public void setCurrentPosition(int currentPosition) {
+        this.currentPosition = currentPosition;
     }
 }
