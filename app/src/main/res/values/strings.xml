@@ -10,4 +10,5 @@
     <!-- Replies names and description -->
     <string name="cestgentil_title">C\'est gentil</string>
     <string name="cestgentil_desc">C\'est gentil…</string>
+    <string name="delete">Supprimer</string>
 </resources>

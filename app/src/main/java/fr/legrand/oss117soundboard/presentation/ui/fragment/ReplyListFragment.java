@@ -137,7 +137,7 @@ public class ReplyListFragment extends BaseFragment implements ReplyListView, Re
     @Override
     public void onSearch(String search) {
         boolean fromFavorite = getArguments().getBoolean(FAVORITE_KEY);
-        if (search ==null || search.isEmpty()) {
+        if (search == null || search.isEmpty()) {
             replyListPresenter.getAllReply(fromFavorite);
         } else {
             replyListPresenter.getAllReplyWithSearch(search, fromFavorite);

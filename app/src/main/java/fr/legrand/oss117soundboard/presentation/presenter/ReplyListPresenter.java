@@ -110,6 +110,7 @@ public class ReplyListPresenter implements BasePresenter {
                             for (Reply reply : replies) {
                                 replyViewModelList.add(new ReplyViewModel(reply));
                             }
+                            replyListView.displayReplyList();
                             replyListView.updateSearchReplyList(replyViewModelList);
                         }
                     }

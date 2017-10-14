@@ -45,9 +45,11 @@ public class ReplyListViewHolder extends RecyclerView.ViewHolder {
         if(replyViewModel.getReply().isFavorite()){
             favoriteButton.setTextColor(ContextCompat.getColor(context, R.color.favorite_on_button_color));
             favoriteButton.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_favorite_on, 0, 0, 0);
+            favoriteButton.setText(context.getString(R.string.delete));
         }else{
             favoriteButton.setTextColor(ContextCompat.getColor(context, R.color.favorite_off_button_color));
             favoriteButton.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_favorite_off, 0, 0, 0);
+            favoriteButton.setText(context.getString(R.string.favorite));
         }
     }
 

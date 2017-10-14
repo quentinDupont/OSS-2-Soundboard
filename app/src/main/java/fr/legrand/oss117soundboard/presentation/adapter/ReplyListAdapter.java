@@ -39,7 +39,7 @@ public class ReplyListAdapter extends RecyclerView.Adapter<ReplyListViewHolder> 
 
     @Override
     public ReplyListViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View resultView = LayoutInflater.from(activity).inflate(R.layout.reply_search_result_view_holder, parent, false);
+        View resultView = LayoutInflater.from(activity).inflate(R.layout.reply_view_holder, parent, false);
         return new ReplyListViewHolder(resultView, activity);
     }
 
