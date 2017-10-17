@@ -38,7 +38,7 @@ import fr.legrand.oss117soundboard.presentation.ui.activity.BaseActivity;
 @PerActivity
 public class MediaPlayerComponentImpl implements MediaPlayerComponent {
 
-    private static final int MULTI_LISTEN_NUMBER_LIMIT = 6;
+    private static final int MULTI_LISTEN_NUMBER_LIMIT = 8;
 
     private BaseActivity activity;
     private SimpleExoPlayer mediaPlayer;
@@ -133,6 +133,7 @@ public class MediaPlayerComponentImpl implements MediaPlayerComponent {
         if (mediaPlayer != null) {
             mediaPlayer.release();
             mediaPlayer = null;
+            runningMediaPlayerList.clear();
         }
     }
 

@@ -7,7 +7,7 @@
     <string name="favorite_list_title">Favoris</string>
     <string name="reply_list_title">Répliques</string>
     <string name="delete">Supprimer</string>
-    <string name="multi_listen">Écoute multiple</string>
+    <string name="multi_listen">Écoute multiple (8 simultanées max)</string>
 
     <!-- Replies names and description -->
     <string name="cestgentil_title">C\'est gentil</string>
