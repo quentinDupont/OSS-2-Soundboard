@@ -2,6 +2,7 @@ package fr.legrand.oss117soundboard.presentation.di.module;
 
 import android.content.Context;
 
+import com.cocosw.favor.FavorAdapter;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -15,6 +16,7 @@ import fr.legrand.oss117soundboard.data.manager.file.FileManager;
 import fr.legrand.oss117soundboard.data.manager.file.FileManagerImpl;
 import fr.legrand.oss117soundboard.data.manager.sharedpref.SharedPrefManager;
 import fr.legrand.oss117soundboard.data.manager.sharedpref.SharedPrefManagerImpl;
+import fr.legrand.oss117soundboard.data.manager.sharedpref.SharedPreferences;
 import fr.legrand.oss117soundboard.data.repository.ContentRepository;
 import fr.legrand.oss117soundboard.data.repository.ContentRepositoryImpl;
 import fr.legrand.oss117soundboard.presentation.OSSApplication;
@@ -63,8 +65,8 @@ public class ApplicationModule {
 
     @Provides
     @Singleton
-    SharedPrefManager databaseManager(SharedPrefManagerImpl sharedPrefManager) {
-        return sharedPrefManager;
+    SharedPreferences sharedPreferences(Context context) {
+        return new FavorAdapter.Builder(context).build().create(SharedPreferences.class);
     }
 
     @Provides

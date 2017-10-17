@@ -19,6 +19,8 @@ public interface ContentRepository {
 
     Observable<List<Reply>> getAllReply(boolean fromFavorite);
 
+    Completable updateMultiListenParameter(boolean multiListen);
+
     boolean isMultiListenEnabled();
 
 }

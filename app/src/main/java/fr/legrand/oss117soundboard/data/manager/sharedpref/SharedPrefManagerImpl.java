@@ -1,5 +1,6 @@
 package fr.legrand.oss117soundboard.data.manager.sharedpref;
 
+import javax.inject.Inject;
 import javax.inject.Singleton;
 
 /**
@@ -11,6 +12,7 @@ public class SharedPrefManagerImpl implements SharedPrefManager {
 
     private SharedPreferences sharedPreferences;
 
+    @Inject
     public SharedPrefManagerImpl(SharedPreferences sharedPreferences) {
         this.sharedPreferences = sharedPreferences;
     }
@@ -18,5 +20,10 @@ public class SharedPrefManagerImpl implements SharedPrefManager {
     @Override
     public boolean isMultiListenEnabled() {
         return sharedPreferences.isMultiListenEnabled();
+    }
+
+    @Override
+    public void setMultiListenEnabled(boolean multiListen) {
+        sharedPreferences.setMultiListenEnabled(multiListen);
     }
 }

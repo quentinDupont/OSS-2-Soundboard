@@ -10,6 +10,8 @@ public class ReplyViewModel {
 
     private Reply reply;
 
+    private boolean isExpanded;
+
     public ReplyViewModel(Reply reply) {
         this.reply = reply;
     }
@@ -20,6 +22,14 @@ public class ReplyViewModel {
 
     public String getFormattedDescription(){
         return String.format("%1$s%2$s%3$s", "\"", reply.getDescription(), "\"");
+    }
+
+    public boolean isExpanded() {
+        return isExpanded;
+    }
+
+    public void setExpanded(boolean expanded) {
+        isExpanded = expanded;
     }
 
     @Override

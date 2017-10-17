@@ -11,5 +11,5 @@ public interface SharedPreferences {
 
     boolean isMultiListenEnabled();
 
-    void setMultiListenEnabled();
+    void setMultiListenEnabled(boolean multiListenEnabled);
 }

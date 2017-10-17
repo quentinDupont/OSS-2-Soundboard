@@ -54,6 +54,12 @@ public class ContentRepositoryImpl implements ContentRepository {
     }
 
     @Override
+    public Completable updateMultiListenParameter(boolean multiListen) {
+        sharedPrefManager.setMultiListenEnabled(multiListen);
+        return Completable.complete();
+    }
+
+    @Override
     public boolean isMultiListenEnabled() {
         return sharedPrefManager.isMultiListenEnabled();
     }

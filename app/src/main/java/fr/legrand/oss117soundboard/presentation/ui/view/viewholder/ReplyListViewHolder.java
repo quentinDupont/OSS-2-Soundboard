@@ -52,11 +52,20 @@ public class ReplyListViewHolder extends RecyclerView.ViewHolder {
             favoriteButton.setText(context.getString(R.string.favorite));
             favoriteIndicator.setVisibility(View.GONE);
         }
+        if(replyViewModel.isExpanded()){
+            replyDescription.setVisibility(View.VISIBLE);
+            descriptionToggle.setImageResource(R.drawable.ic_toggle_up);
+        }else{
+            replyDescription.setVisibility(View.GONE);
+            descriptionToggle.setImageResource(R.drawable.ic_toggle_down);
+        }
         titleArea.setOnClickListener(view -> {
             if (replyDescription.getVisibility() == View.VISIBLE) {
+                replyViewModel.setExpanded(false);
                 replyDescription.setVisibility(View.GONE);
                 descriptionToggle.setImageResource(R.drawable.ic_toggle_down);
             } else {
+                replyViewModel.setExpanded(true);
                 replyDescription.setVisibility(View.VISIBLE);
                 descriptionToggle.setImageResource(R.drawable.ic_toggle_up);
             }

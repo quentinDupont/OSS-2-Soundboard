@@ -14,6 +14,7 @@ import fr.legrand.oss117soundboard.R;
 import fr.legrand.oss117soundboard.presentation.di.PerActivity;
 import fr.legrand.oss117soundboard.presentation.ui.activity.BaseActivity;
 import fr.legrand.oss117soundboard.presentation.ui.fragment.BaseFragment;
+import fr.legrand.oss117soundboard.presentation.ui.fragment.ParameterFragment;
 import fr.legrand.oss117soundboard.presentation.ui.fragment.ReplyListFragment;
 import fr.legrand.oss117soundboard.presentation.ui.listener.OnSearchListener;
 
@@ -22,10 +23,11 @@ import fr.legrand.oss117soundboard.presentation.ui.listener.OnSearchListener;
  */
 @PerActivity
 public class ReplyPagerAdapter extends FragmentStatePagerAdapter {
-    private static final int FRAGMENT_COUNT = 2;
+    private static final int FRAGMENT_COUNT = 3;
 
     private static final int FAVORITE_LIST_POSITION = 0;
     private static final int REPLY_LIST_POSITION = 1;
+    private static final int PARAMETER_POSITION = 2;
 
     private int currentPosition;
 
@@ -39,6 +41,7 @@ public class ReplyPagerAdapter extends FragmentStatePagerAdapter {
         pagerTitles = new ArrayList<>();
         pagerTitles.add(FAVORITE_LIST_POSITION, context.getString(R.string.favorite_list_title));
         pagerTitles.add(REPLY_LIST_POSITION, context.getString(R.string.reply_list_title));
+        pagerTitles.add(PARAMETER_POSITION, context.getString(R.string.parameter_title));
     }
 
     @Override
@@ -57,6 +60,8 @@ public class ReplyPagerAdapter extends FragmentStatePagerAdapter {
                     searchListenerList.add((OnSearchListener) replyFragment);
                 }
                 return replyFragment;
+            case PARAMETER_POSITION:
+                return ParameterFragment.newInstance();
             default:
                 return null;
         }
