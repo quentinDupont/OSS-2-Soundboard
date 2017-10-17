@@ -15,6 +15,7 @@ import com.google.android.exoplayer2.upstream.RawResourceDataSource;
 
 import javax.inject.Inject;
 
+import fr.legrand.oss117soundboard.data.repository.ContentRepository;
 import fr.legrand.oss117soundboard.presentation.di.PerActivity;
 import fr.legrand.oss117soundboard.presentation.ui.activity.BaseActivity;
 
@@ -28,14 +29,19 @@ public class MediaPlayerComponentImpl implements MediaPlayerComponent {
     private BaseActivity activity;
     private SimpleExoPlayer mediaPlayer;
 
+    private ContentRepository contentRepository;
+
     @Inject
-    public MediaPlayerComponentImpl(BaseActivity activity) {
+    public MediaPlayerComponentImpl(BaseActivity activity, ContentRepository contentRepository) {
         this.activity = activity;
+        this.contentRepository = contentRepository;
     }
 
     @Override
     public void playSoundMedia(int mediaId) {
-        releaseMediaPlayer();
+        if (!contentRepository.isMultiListenEnabled()) {
+            releaseMediaPlayer();
+        }
         TrackSelection.Factory videoTrackSelectionFactory = new AdaptiveTrackSelection.Factory(null);
         TrackSelector trackSelector = new DefaultTrackSelector(videoTrackSelectionFactory);
         mediaPlayer = ExoPlayerFactory.newSimpleInstance(activity, trackSelector);

@@ -8,6 +8,7 @@ import javax.inject.Singleton;
 import fr.legrand.oss117soundboard.data.entity.Reply;
 import fr.legrand.oss117soundboard.data.manager.db.DatabaseManager;
 import fr.legrand.oss117soundboard.data.manager.file.FileManager;
+import fr.legrand.oss117soundboard.data.manager.sharedpref.SharedPrefManager;
 import io.reactivex.Completable;
 import io.reactivex.Observable;
 
@@ -18,11 +19,13 @@ import io.reactivex.Observable;
 public class ContentRepositoryImpl implements ContentRepository {
 
     private DatabaseManager databaseManager;
+    private SharedPrefManager sharedPrefManager;
     private FileManager fileManager;
 
     @Inject
-    public ContentRepositoryImpl(DatabaseManager databaseManager, FileManager fileManager) {
+    public ContentRepositoryImpl(DatabaseManager databaseManager, SharedPrefManager sharedPrefManager, FileManager fileManager) {
         this.databaseManager = databaseManager;
+        this.sharedPrefManager = sharedPrefManager;
         this.fileManager = fileManager;
     }
 
@@ -48,5 +51,10 @@ public class ContentRepositoryImpl implements ContentRepository {
     @Override
     public Observable<List<Reply>> getAllReply(boolean fromFavorite) {
         return Observable.defer(() -> Observable.just(databaseManager.getAllReply(fromFavorite)));
+    }
+
+    @Override
+    public boolean isMultiListenEnabled() {
+        return sharedPrefManager.isMultiListenEnabled();
     }
 }

@@ -11,10 +11,10 @@ import dagger.Module;
 import dagger.Provides;
 import fr.legrand.oss117soundboard.data.manager.db.DatabaseManager;
 import fr.legrand.oss117soundboard.data.manager.db.DatabaseManagerImpl;
-import fr.legrand.oss117soundboard.data.manager.sharedpref.SharedPrefManager;
-import fr.legrand.oss117soundboard.data.manager.sharedpref.SharedPrefManagerImpl;
 import fr.legrand.oss117soundboard.data.manager.file.FileManager;
 import fr.legrand.oss117soundboard.data.manager.file.FileManagerImpl;
+import fr.legrand.oss117soundboard.data.manager.sharedpref.SharedPrefManager;
+import fr.legrand.oss117soundboard.data.manager.sharedpref.SharedPrefManagerImpl;
 import fr.legrand.oss117soundboard.data.repository.ContentRepository;
 import fr.legrand.oss117soundboard.data.repository.ContentRepositoryImpl;
 import fr.legrand.oss117soundboard.presentation.OSSApplication;
@@ -63,7 +63,13 @@ public class ApplicationModule {
 
     @Provides
     @Singleton
-    Gson gson(){
+    SharedPrefManager databaseManager(SharedPrefManagerImpl sharedPrefManager) {
+        return sharedPrefManager;
+    }
+
+    @Provides
+    @Singleton
+    Gson gson() {
         return new GsonBuilder().create();
     }
 }

@@ -5,4 +5,5 @@ package fr.legrand.oss117soundboard.data.manager.sharedpref;
  */
 
 public interface SharedPrefManager {
+    boolean isMultiListenEnabled();
 }

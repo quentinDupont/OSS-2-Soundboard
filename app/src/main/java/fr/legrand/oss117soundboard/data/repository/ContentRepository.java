@@ -18,4 +18,7 @@ public interface ContentRepository {
     Observable<Reply> updateFavoriteReply(int replyId, boolean addToFavorite);
 
     Observable<List<Reply>> getAllReply(boolean fromFavorite);
+
+    boolean isMultiListenEnabled();
+
 }

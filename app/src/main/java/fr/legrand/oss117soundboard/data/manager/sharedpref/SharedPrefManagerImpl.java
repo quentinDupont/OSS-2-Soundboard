@@ -7,5 +7,16 @@ import javax.inject.Singleton;
  */
 
 @Singleton
-public class SharedPrefManagerImpl implements SharedPrefManager{
+public class SharedPrefManagerImpl implements SharedPrefManager {
+
+    private SharedPreferences sharedPreferences;
+
+    public SharedPrefManagerImpl(SharedPreferences sharedPreferences) {
+        this.sharedPreferences = sharedPreferences;
+    }
+
+    @Override
+    public boolean isMultiListenEnabled() {
+        return sharedPreferences.isMultiListenEnabled();
+    }
 }

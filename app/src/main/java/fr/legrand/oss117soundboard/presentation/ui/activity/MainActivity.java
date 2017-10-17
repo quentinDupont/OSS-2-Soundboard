@@ -56,8 +56,6 @@ public class MainActivity extends BaseActivity implements MainView, MainNavigato
         ButterKnife.bind(this);
         getActivityComponent().inject(this);
 
-        initializeSearchView();
-
         mainPresenter.setMainView(this);
 
         mainPresenter.initAllReply();
@@ -129,6 +127,7 @@ public class MainActivity extends BaseActivity implements MainView, MainNavigato
     }
 
     private void initializeSearchView() {
+        searchView.setIconified(false);
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String s) {

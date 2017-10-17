@@ -8,4 +8,8 @@ import com.cocosw.favor.AllFavor;
 
 @AllFavor
 public interface SharedPreferences {
+
+    boolean isMultiListenEnabled();
+
+    void setMultiListenEnabled();
 }

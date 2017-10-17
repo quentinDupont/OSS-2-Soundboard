@@ -54,6 +54,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_toEndOf="@id/activity_main_toolbar_search_back"
+                android:iconifiedByDefault="false"
                 android:queryHint="@string/search_reply" />
 
         </RelativeLayout>
