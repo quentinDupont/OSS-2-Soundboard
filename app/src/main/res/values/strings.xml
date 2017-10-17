@@ -13,4 +13,7 @@
     <string name="cestgentil_title">C\'est gentil</string>
     <string name="cestgentil_desc">C\'est gentil…</string>
     <string name="parameter_title">Paramètres</string>
+    <string name="listen_error">Et là, euh… Vous faites quoi ? (Trop d\'écoutes simultanées)</string>
+    <string name="easter_egg_search">oss 3</string>
+    <string name="easter_egg_url">https://duckduckgo.com/?q=oss+117+3&amp;kad=fr_FR</string>
 </resources>

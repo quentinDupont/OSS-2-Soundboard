@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.os.PersistableBundle;
 import android.support.annotation.Nullable;
+import android.view.View;
 
 import fr.legrand.oss117soundboard.presentation.OSSApplication;
 import fr.legrand.oss117soundboard.presentation.di.component.ActivityComponent;
@@ -14,7 +15,7 @@ import fr.legrand.oss117soundboard.presentation.di.module.ActivityModule;
  * Created by Benjamin on 30/09/2017.
  */
 
-public class BaseActivity extends Activity {
+public abstract class BaseActivity extends Activity {
 
     private ActivityComponent activityComponent;
 
@@ -32,4 +33,7 @@ public class BaseActivity extends Activity {
     public ActivityComponent getActivityComponent() {
         return activityComponent;
     }
+
+    public abstract View getRootView();
+
 }

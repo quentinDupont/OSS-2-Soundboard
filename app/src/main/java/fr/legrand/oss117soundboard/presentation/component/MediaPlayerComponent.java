@@ -7,5 +7,5 @@ package fr.legrand.oss117soundboard.presentation.component;
 public interface MediaPlayerComponent {
     void playSoundMedia(int mediaId);
 
-    void releaseMediaPlayer();
+    void releaseCurrentMediaPlayer();
 }

@@ -71,7 +71,6 @@
             android:paddingEnd="@dimen/card_view_padding"
             android:paddingStart="@dimen/card_view_padding">
 
-
             <Button
                 android:id="@+id/reply_view_holder_listen_button"
                 android:layout_width="wrap_content"

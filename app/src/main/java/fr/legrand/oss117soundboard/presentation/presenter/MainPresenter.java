@@ -43,7 +43,7 @@ public class MainPresenter implements BasePresenter {
 
     @Override
     public void onStop() {
-        mediaPlayerComponent.releaseMediaPlayer();
+        mediaPlayerComponent.releaseCurrentMediaPlayer();
     }
 
     @Override

@@ -40,6 +40,8 @@ public class MainActivity extends BaseActivity implements MainView, MainNavigato
     @BindView(R.id.reply_view_pager)
     ViewPager replyViewPager;
 
+    @BindView(R.id.main_activity_root_layout)
+    RelativeLayout rootLayout;
     @BindView(R.id.activity_main_toolbar_layout_base)
     RelativeLayout toolbarBaseLayout;
     @BindView(R.id.activity_main_toolbar_layout_search)
@@ -121,6 +123,11 @@ public class MainActivity extends BaseActivity implements MainView, MainNavigato
         replyPagerAdapter.onSearch(searchView.getQuery().toString(), false);
     }
 
+    @Override
+    public View getRootView() {
+        return rootLayout;
+    }
+
     private void updateToolbarLayout(boolean displayBaseLayout) {
         toolbarBaseLayout.setVisibility(displayBaseLayout ? View.VISIBLE : View.GONE);
         toolbarSearchLayout.setVisibility(displayBaseLayout ? View.GONE : View.VISIBLE);
@@ -137,7 +144,11 @@ public class MainActivity extends BaseActivity implements MainView, MainNavigato
 
             @Override
             public boolean onQueryTextChange(String s) {
-                replyPagerAdapter.onSearch(s, true);
+                if (s.equals(getString(R.string.easter_egg_search))) {
+                    mainNavigator.launchBrowsingApp();
+                } else {
+                    replyPagerAdapter.onSearch(s, true);
+                }
                 return true;
             }
         });
