@@ -20,8 +20,12 @@ public class ReplyViewModel {
         return reply;
     }
 
-    public String getFormattedDescription(){
+    public String getFormattedDescription() {
         return String.format("%1$s%2$s%3$s", "\"", reply.getDescription(), "\"");
+    }
+
+    public String getMostListenedText() {
+        return String.format("%1$s (%2$d)", reply.getName(), reply.getListenCount());
     }
 
     public boolean isExpanded() {

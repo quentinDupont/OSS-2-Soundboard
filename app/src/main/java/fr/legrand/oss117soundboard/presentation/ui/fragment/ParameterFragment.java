@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Switch;
+import android.widget.TextView;
 
 import javax.inject.Inject;
 
@@ -13,19 +14,24 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import fr.legrand.oss117soundboard.R;
 import fr.legrand.oss117soundboard.presentation.presenter.ParameterPresenter;
+import fr.legrand.oss117soundboard.presentation.ui.listener.OnListenReplyListener;
 import fr.legrand.oss117soundboard.presentation.ui.view.viewinterface.ParameterView;
+import fr.legrand.oss117soundboard.presentation.ui.view.viewmodel.ReplyViewModel;
 
 /**
  * Created by Benjamin on 17/10/2017.
  */
 
-public class ParameterFragment extends BaseFragment implements ParameterView {
+public class ParameterFragment extends BaseFragment implements ParameterView, OnListenReplyListener {
 
     @Inject
     ParameterPresenter parameterPresenter;
 
     @BindView(R.id.fragment_parameter_multi_listen_switch)
     Switch multiListenSwitch;
+
+    @BindView(R.id.fragment_parameter_most_listened_reply_name)
+    TextView mostListenedReplyName;
 
     public static ParameterFragment newInstance() {
 
@@ -53,17 +59,32 @@ public class ParameterFragment extends BaseFragment implements ParameterView {
     public void onStart() {
         super.onStart();
         parameterPresenter.checkMultiListenEnabled();
-    }
-
-    public void initializeSwitch() {
-        multiListenSwitch.setOnCheckedChangeListener((compoundButton, isChecked) -> {
-            parameterPresenter.updateMultiListenParameter(isChecked);
-        });
+        parameterPresenter.getMostListenedReply();
     }
 
 
     @Override
     public void updateSwitch(boolean checked) {
         multiListenSwitch.setChecked(checked);
+    }
+
+    @Override
+    public void updateMostListenedReply(ReplyViewModel replyViewModel) {
+        if (replyViewModel != null) {
+            mostListenedReplyName.setText(replyViewModel.getMostListenedText());
+        } else {
+            mostListenedReplyName.setText(getString(R.string.no_listened_reply));
+        }
+    }
+
+    @Override
+    public void onListen() {
+        parameterPresenter.getMostListenedReply();
+    }
+
+    public void initializeSwitch() {
+        multiListenSwitch.setOnCheckedChangeListener((compoundButton, isChecked) -> {
+            parameterPresenter.updateMultiListenParameter(isChecked);
+        });
     }
 }

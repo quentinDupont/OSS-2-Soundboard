@@ -26,6 +26,9 @@ public class Reply extends BaseModel {
     @Column
     private boolean favorite;
 
+    @Column
+    private int listenCount;
+
     public Reply(int id, String name, String description) {
         this.id = id;
         this.name = name;
@@ -74,4 +77,11 @@ public class Reply extends BaseModel {
     }
 
 
+    public int getListenCount() {
+        return listenCount;
+    }
+
+    public void setListenCount(int listenCount) {
+        this.listenCount = listenCount;
+    }
 }

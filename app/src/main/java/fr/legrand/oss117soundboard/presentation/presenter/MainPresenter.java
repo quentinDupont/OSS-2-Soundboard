@@ -34,6 +34,7 @@ public class MainPresenter implements BasePresenter {
 
     @Override
     public void onPause() {
+        mediaPlayerComponent.releaseAllRunningPlayer();
     }
 
     @Override
@@ -43,7 +44,6 @@ public class MainPresenter implements BasePresenter {
 
     @Override
     public void onStop() {
-        mediaPlayerComponent.releaseCurrentMediaPlayer();
     }
 
     @Override

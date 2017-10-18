@@ -1,6 +1,7 @@
 package fr.legrand.oss117soundboard.data.repository;
 
 import java.util.List;
+import java.util.concurrent.Callable;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -10,6 +11,7 @@ import fr.legrand.oss117soundboard.data.manager.db.DatabaseManager;
 import fr.legrand.oss117soundboard.data.manager.file.FileManager;
 import fr.legrand.oss117soundboard.data.manager.sharedpref.SharedPrefManager;
 import io.reactivex.Completable;
+import io.reactivex.CompletableSource;
 import io.reactivex.Observable;
 
 /**
@@ -62,5 +64,18 @@ public class ContentRepositoryImpl implements ContentRepository {
     @Override
     public boolean isMultiListenEnabled() {
         return sharedPrefManager.isMultiListenEnabled();
+    }
+
+    @Override
+    public Observable<Reply> getMostListenedReply() {
+        return Observable.fromCallable(() -> databaseManager.getMostListenedReply());
+    }
+
+    @Override
+    public Completable incrementReplyListenCount(int replyId) {
+        return Completable.defer(() -> {
+            databaseManager.incrementReplyListenCount(replyId);
+            return Completable.complete();
+        });
     }
 }

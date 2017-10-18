@@ -16,6 +16,7 @@ import fr.legrand.oss117soundboard.presentation.ui.activity.BaseActivity;
 import fr.legrand.oss117soundboard.presentation.ui.fragment.BaseFragment;
 import fr.legrand.oss117soundboard.presentation.ui.fragment.ParameterFragment;
 import fr.legrand.oss117soundboard.presentation.ui.fragment.ReplyListFragment;
+import fr.legrand.oss117soundboard.presentation.ui.listener.OnListenReplyListener;
 import fr.legrand.oss117soundboard.presentation.ui.listener.OnSearchListener;
 
 /**
@@ -33,11 +34,13 @@ public class ReplyPagerAdapter extends FragmentStatePagerAdapter {
 
     private List<String> pagerTitles;
     private List<OnSearchListener> searchListenerList;
+    private List<OnListenReplyListener> listenListenerList;
 
     @Inject
     public ReplyPagerAdapter(Context context, BaseActivity activity) {
         super(activity.getFragmentManager());
         searchListenerList = new ArrayList<>();
+        listenListenerList = new ArrayList<>();
         pagerTitles = new ArrayList<>();
         pagerTitles.add(FAVORITE_LIST_POSITION, context.getString(R.string.favorite_list_title));
         pagerTitles.add(REPLY_LIST_POSITION, context.getString(R.string.reply_list_title));
@@ -61,7 +64,11 @@ public class ReplyPagerAdapter extends FragmentStatePagerAdapter {
                 }
                 return replyFragment;
             case PARAMETER_POSITION:
-                return ParameterFragment.newInstance();
+                BaseFragment parameterFragment = ParameterFragment.newInstance();
+                if (parameterFragment instanceof OnListenReplyListener) {
+                    listenListenerList.add((OnListenReplyListener) parameterFragment);
+                }
+                return parameterFragment;
             default:
                 return null;
         }
@@ -82,6 +89,15 @@ public class ReplyPagerAdapter extends FragmentStatePagerAdapter {
             //No need to handle removal from list for now because all fragments are instantiated at the beginning
             if (i != currentPosition || updateCurrent) {
                 searchListenerList.get(i).onSearch(search);
+            }
+        }
+    }
+
+    public void onListen() {
+        for (int i = 0; i < searchListenerList.size(); i++) {
+            //No need to handle removal from list for now because all fragments are instantiated at the beginning
+            if (i != currentPosition) {
+                listenListenerList.get(i).onListen();
             }
         }
     }

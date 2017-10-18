@@ -8,4 +8,6 @@ public interface MediaPlayerComponent {
     void playSoundMedia(int mediaId);
 
     void releaseCurrentMediaPlayer();
+
+    void releaseAllRunningPlayer();
 }

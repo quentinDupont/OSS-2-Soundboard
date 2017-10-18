@@ -23,4 +23,8 @@ public interface ContentRepository {
 
     boolean isMultiListenEnabled();
 
+    Observable<Reply> getMostListenedReply();
+
+    Completable incrementReplyListenCount(int replyId);
+
 }

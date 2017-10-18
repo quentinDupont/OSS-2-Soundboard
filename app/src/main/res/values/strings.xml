@@ -16,4 +16,6 @@
     <string name="listen_error">Et là, euh… Vous faites quoi ? (Trop d\'écoutes simultanées)</string>
     <string name="easter_egg_search">oss 3</string>
     <string name="easter_egg_url">https://duckduckgo.com/?q=oss+117+3&amp;kad=fr_FR</string>
+    <string name="most_listened_reply">Réplique la plus écoutée</string>
+    <string name="no_listened_reply">Aucune</string>
 </resources>

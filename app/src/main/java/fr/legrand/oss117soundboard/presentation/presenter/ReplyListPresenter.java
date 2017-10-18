@@ -13,6 +13,7 @@ import fr.legrand.oss117soundboard.presentation.navigator.listener.BaseNavigator
 import fr.legrand.oss117soundboard.presentation.navigator.listener.MainNavigatorListener;
 import fr.legrand.oss117soundboard.presentation.ui.view.viewinterface.ReplyListView;
 import fr.legrand.oss117soundboard.presentation.ui.view.viewmodel.ReplyViewModel;
+import io.reactivex.CompletableObserver;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
@@ -161,7 +162,24 @@ public class ReplyListPresenter implements BasePresenter {
     }
 
     public void listenToReply(int replyId) {
-        mediaPlayerComponent.playSoundMedia(replyId);
+        contentRepository.incrementReplyListenCount(replyId).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new CompletableObserver() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onComplete() {
+                        mainNavigatorListener.onListenReply();
+                        mediaPlayerComponent.playSoundMedia(replyId);
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+                });
     }
 
 

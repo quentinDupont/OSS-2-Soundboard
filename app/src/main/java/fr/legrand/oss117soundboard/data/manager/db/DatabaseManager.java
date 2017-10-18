@@ -5,6 +5,7 @@ import com.raizlabs.android.dbflow.annotation.Database;
 import java.util.List;
 
 import fr.legrand.oss117soundboard.data.entity.Reply;
+import io.reactivex.Observable;
 
 /**
  * Created by Benjamin on 30/09/2017.
@@ -21,4 +22,8 @@ public interface DatabaseManager {
     Reply updateFavoriteReply(int replyId, boolean addToFavorite);
 
     void saveReplyList(List<Reply> replyList);
+
+    Reply getMostListenedReply();
+
+    void incrementReplyListenCount(int replyId);
 }

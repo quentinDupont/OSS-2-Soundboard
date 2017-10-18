@@ -1,5 +1,6 @@
 package fr.legrand.oss117soundboard.presentation.ui.activity;
 
+import android.media.AudioManager;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
@@ -27,6 +28,7 @@ import fr.legrand.oss117soundboard.presentation.ui.view.viewinterface.MainView;
 
 public class MainActivity extends BaseActivity implements MainView, MainNavigatorListener {
 
+    private static final int OFFSCREEN_PAGE_LOADED_NUMBER = 3;
     @Inject
     MainNavigator mainNavigator;
     @Inject
@@ -54,6 +56,9 @@ public class MainActivity extends BaseActivity implements MainView, MainNavigato
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //We change the media volume affected by hardware buttons
+        setVolumeControlStream(AudioManager.STREAM_MUSIC);
+
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
         getActivityComponent().inject(this);
@@ -84,6 +89,7 @@ public class MainActivity extends BaseActivity implements MainView, MainNavigato
     @Override
     public void requestDisplayReplyListFragment() {
         replyViewPager.setAdapter(replyPagerAdapter);
+        replyViewPager.setOffscreenPageLimit(OFFSCREEN_PAGE_LOADED_NUMBER);
         mainTabLayout.setupWithViewPager(replyViewPager);
         replyViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
@@ -121,6 +127,11 @@ public class MainActivity extends BaseActivity implements MainView, MainNavigato
     @Override
     public void updateAllLayout() {
         replyPagerAdapter.onSearch(searchView.getQuery().toString(), false);
+    }
+
+    @Override
+    public void onListenReply() {
+        replyPagerAdapter.onListen();
     }
 
     @Override

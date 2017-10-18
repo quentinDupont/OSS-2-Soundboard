@@ -73,8 +73,7 @@ public class MediaPlayerComponentImpl implements MediaPlayerComponent {
             ExtractorMediaSource soundSource = new ExtractorMediaSource(soundUri, () -> dataSource, Mp3Extractor.FACTORY, null, null);
 
             if (runningMediaPlayerList.size() >= MULTI_LISTEN_NUMBER_LIMIT) {
-                releaseMediaPlayer(runningMediaPlayerList.get(0).getSimpleExoPlayer());
-                runningMediaPlayerList.remove(0);
+                removeRunningPlayerWithPosition(0);
             }
             mediaPlayer.addListener(new Player.EventListener() {
                 @Override
@@ -137,6 +136,14 @@ public class MediaPlayerComponentImpl implements MediaPlayerComponent {
         }
     }
 
+    @Override
+    public void releaseAllRunningPlayer() {
+        for (RunningPlayer runningPlayer : runningMediaPlayerList) {
+            runningPlayer.getSimpleExoPlayer().release();
+        }
+        runningMediaPlayerList.clear();
+    }
+
     private void removeRunningPlayer(int mediaId) {
         for (Iterator<RunningPlayer> iterator = runningMediaPlayerList.iterator(); iterator.hasNext(); ) {
             RunningPlayer runningPlayer = iterator.next();
@@ -145,6 +152,13 @@ public class MediaPlayerComponentImpl implements MediaPlayerComponent {
                 releaseMediaPlayer(runningPlayer.getSimpleExoPlayer());
                 return;
             }
+        }
+    }
+
+    private void removeRunningPlayerWithPosition(int position) {
+        if (position < runningMediaPlayerList.size()) {
+            releaseMediaPlayer(runningMediaPlayerList.get(position).getSimpleExoPlayer());
+            runningMediaPlayerList.remove(position);
         }
     }
 

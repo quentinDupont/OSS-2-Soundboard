@@ -1,6 +1,9 @@
 package fr.legrand.oss117soundboard.data.manager.db;
 
+import android.database.Cursor;
+
 import com.raizlabs.android.dbflow.config.FlowManager;
+import com.raizlabs.android.dbflow.sql.language.Method;
 import com.raizlabs.android.dbflow.sql.language.OperatorGroup;
 import com.raizlabs.android.dbflow.sql.language.SQLite;
 
@@ -10,6 +13,7 @@ import javax.inject.Inject;
 
 import fr.legrand.oss117soundboard.data.entity.Reply;
 import fr.legrand.oss117soundboard.data.entity.Reply_Table;
+import fr.legrand.oss117soundboard.data.exception.NoListenedReplyException;
 
 /**
  * Created by Benjamin on 30/09/2017.
@@ -69,5 +73,31 @@ public class DatabaseManagerImpl implements DatabaseManager {
                 reply.save();
             }
         });
+    }
+
+    @Override
+    public Reply getMostListenedReply() {
+        Cursor cursor = SQLite.select(Method.max(Reply_Table.listenCount).as("max")).from(Reply.class).query();
+        if (cursor != null && cursor.moveToFirst()) {
+            int max = cursor.getInt(0);
+            cursor.close();
+            Reply reply = SQLite.select().from(Reply.class).where(Reply_Table.listenCount.eq(max)).querySingle();
+            if (reply == null || reply.getListenCount() == 0) {
+                throw new NoListenedReplyException();
+            } else {
+                return reply;
+            }
+        } else {
+            throw new NoListenedReplyException();
+        }
+    }
+
+    @Override
+    public void incrementReplyListenCount(int replyId) {
+        Reply reply = SQLite.select().from(Reply.class).where(Reply_Table.id.eq(replyId)).querySingle();
+        if (reply != null) {
+            reply.setListenCount(reply.getListenCount() + 1);
+            reply.save();
+        }
     }
 }

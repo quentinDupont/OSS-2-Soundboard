@@ -6,4 +6,6 @@ package fr.legrand.oss117soundboard.presentation.navigator.listener;
 
 public interface MainNavigatorListener extends BaseNavigatorListener{
     void updateAllLayout();
+
+    void onListenReply();
 }
