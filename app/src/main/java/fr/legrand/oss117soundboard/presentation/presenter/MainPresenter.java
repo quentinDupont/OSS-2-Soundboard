@@ -66,7 +66,6 @@ public class MainPresenter implements BasePresenter {
 
                     @Override
                     public void onError(Throwable e) {
-
                     }
                 });
     }

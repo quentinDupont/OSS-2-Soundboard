@@ -94,7 +94,7 @@ public class ReplyPagerAdapter extends FragmentStatePagerAdapter {
     }
 
     public void onListen() {
-        for (int i = 0; i < searchListenerList.size(); i++) {
+        for (int i = 0; i < listenListenerList.size(); i++) {
             //No need to handle removal from list for now because all fragments are instantiated at the beginning
             if (i != currentPosition) {
                 listenListenerList.get(i).onListen();
