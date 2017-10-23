@@ -27,4 +27,7 @@ public interface ContentRepository {
 
     Completable incrementReplyListenCount(int replyId);
 
+    void increaseTotalReplyTime(long duration);
+
+    Observable<Long> getTotalReplyTime();
 }

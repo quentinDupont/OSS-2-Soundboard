@@ -20,6 +20,12 @@ import io.reactivex.schedulers.Schedulers;
 
 public class ParameterPresenter implements BasePresenter {
 
+    private final static long MS_TO_S = 1000;
+    private final static long MS_TO_M = 60 * 1000;
+    private final static long MS_TO_H = 60 * 60 * 1000;
+    private final static long M_S_MODULO_VALUE = 60;
+    private final static long H_MODULO_VALUE = 24;
+
     private ContentRepository contentRepository;
     private MediaPlayerComponent mediaPlayerComponent;
 
@@ -102,6 +108,31 @@ public class ParameterPresenter implements BasePresenter {
                         if (e instanceof NoListenedReplyException) {
                             parameterView.updateMostListenedReply(null);
                         }
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
+    }
+
+    public void getTotalReplyTime() {
+        contentRepository.getTotalReplyTime().subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<Long>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(Long totalTime) {
+                        parameterView.updateTotalReplyTime(totalTime / MS_TO_H % H_MODULO_VALUE, totalTime / MS_TO_M % M_S_MODULO_VALUE, totalTime / MS_TO_S % M_S_MODULO_VALUE);
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
                     }
 
                     @Override

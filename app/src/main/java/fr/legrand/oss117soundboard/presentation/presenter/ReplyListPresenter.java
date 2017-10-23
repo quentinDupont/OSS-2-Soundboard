@@ -161,7 +161,7 @@ public class ReplyListPresenter implements BasePresenter {
         this.replyListView = replyListView;
     }
 
-    public void listenToReply(int replyId) {
+    public void incrementReplyCount(int replyId) {
         contentRepository.incrementReplyListenCount(replyId).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new CompletableObserver() {
                     @Override
@@ -171,8 +171,30 @@ public class ReplyListPresenter implements BasePresenter {
 
                     @Override
                     public void onComplete() {
-                        mainNavigatorListener.onListenReply();
-                        mediaPlayerComponent.playSoundMedia(replyId);
+                        listenToReply(replyId);
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+                });
+    }
+
+    private void listenToReply(int replyId) {
+        mediaPlayerComponent.playSoundMedia(replyId).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new CompletableObserver() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onComplete() {
+                        if (!mediaPlayerComponent.isPlayerCurrentlyRunning()) {
+                            mainNavigatorListener.onReplyListened();
+                        }
                     }
 
                     @Override

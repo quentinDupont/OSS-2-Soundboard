@@ -11,4 +11,5 @@ public interface ParameterView {
 
     void updateMostListenedReply(ReplyViewModel replyViewModel);
 
+    void updateTotalReplyTime(long hours, long minutes, long seconds);
 }

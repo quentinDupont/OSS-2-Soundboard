@@ -33,6 +33,9 @@ public class ParameterFragment extends BaseFragment implements ParameterView, On
     @BindView(R.id.fragment_parameter_most_listened_reply_name)
     TextView mostListenedReplyName;
 
+    @BindView(R.id.fragment_parameter_total_reply_time)
+    TextView totalReplyTime;
+
     public static ParameterFragment newInstance() {
 
         Bundle args = new Bundle();
@@ -60,6 +63,7 @@ public class ParameterFragment extends BaseFragment implements ParameterView, On
         super.onStart();
         parameterPresenter.checkMultiListenEnabled();
         parameterPresenter.getMostListenedReply();
+        parameterPresenter.getTotalReplyTime();
     }
 
 
@@ -78,8 +82,14 @@ public class ParameterFragment extends BaseFragment implements ParameterView, On
     }
 
     @Override
+    public void updateTotalReplyTime(long hours, long minutes, long seconds) {
+        totalReplyTime.setText(getString(R.string.total_reply_time_text, hours, minutes, seconds));
+    }
+
+    @Override
     public void onListen() {
         parameterPresenter.getMostListenedReply();
+        parameterPresenter.getTotalReplyTime();
     }
 
     public void initializeSwitch() {

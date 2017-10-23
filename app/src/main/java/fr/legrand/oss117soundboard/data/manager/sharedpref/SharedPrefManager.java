@@ -8,4 +8,8 @@ public interface SharedPrefManager {
     boolean isMultiListenEnabled();
 
     void setMultiListenEnabled(boolean multiListen);
+
+    void increaseTotalReplyTime(long duration);
+
+    long getTotalReplyTime();
 }

@@ -26,4 +26,14 @@ public class SharedPrefManagerImpl implements SharedPrefManager {
     public void setMultiListenEnabled(boolean multiListen) {
         sharedPreferences.setMultiListenEnabled(multiListen);
     }
+
+    @Override
+    public void increaseTotalReplyTime(long duration) {
+        sharedPreferences.setTotalReplyTime(sharedPreferences.getTotalReplyTime() + duration);
+    }
+
+    @Override
+    public long getTotalReplyTime() {
+        return sharedPreferences.getTotalReplyTime();
+    }
 }

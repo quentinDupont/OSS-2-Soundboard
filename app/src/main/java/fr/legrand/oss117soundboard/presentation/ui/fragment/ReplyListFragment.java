@@ -116,7 +116,7 @@ public class ReplyListFragment extends BaseFragment implements ReplyListView, Re
 
     @Override
     public void onReplyListenClick(int position) {
-        replyListPresenter.listenToReply(replyListAdapter.getItem(position).getReply().getId());
+        replyListPresenter.incrementReplyCount(replyListAdapter.getItem(position).getReply().getId());
     }
 
     @Override

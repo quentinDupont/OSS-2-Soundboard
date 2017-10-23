@@ -7,6 +7,7 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.SearchView;
 
@@ -29,6 +30,7 @@ import fr.legrand.oss117soundboard.presentation.ui.view.viewinterface.MainView;
 public class MainActivity extends BaseActivity implements MainView, MainNavigatorListener {
 
     private static final int OFFSCREEN_PAGE_LOADED_NUMBER = 3;
+
     @Inject
     MainNavigator mainNavigator;
     @Inject
@@ -38,6 +40,9 @@ public class MainActivity extends BaseActivity implements MainView, MainNavigato
 
     @BindView(R.id.main_tab_layout)
     TabLayout mainTabLayout;
+
+    @BindView(R.id.loading_progress_bar)
+    ProgressBar progressBar;
 
     @BindView(R.id.reply_view_pager)
     ViewPager replyViewPager;
@@ -88,6 +93,9 @@ public class MainActivity extends BaseActivity implements MainView, MainNavigato
 
     @Override
     public void requestDisplayReplyListFragment() {
+        progressBar.setVisibility(View.GONE);
+        replyViewPager.setVisibility(View.VISIBLE);
+        mainTabLayout.setVisibility(View.VISIBLE);
         replyViewPager.setAdapter(replyPagerAdapter);
         replyViewPager.setOffscreenPageLimit(OFFSCREEN_PAGE_LOADED_NUMBER);
         mainTabLayout.setupWithViewPager(replyViewPager);
@@ -118,8 +126,8 @@ public class MainActivity extends BaseActivity implements MainView, MainNavigato
     @OnClick(R.id.activity_main_toolbar_search_back)
     public void searchBackClicked() {
         searchView.setOnQueryTextListener(null);
-        searchView.setIconified(true);
         searchView.clearFocus();
+        searchView.setIconified(true);
         replyPagerAdapter.onSearch(null, true);
         updateToolbarLayout(true);
     }
@@ -130,7 +138,7 @@ public class MainActivity extends BaseActivity implements MainView, MainNavigato
     }
 
     @Override
-    public void onListenReply() {
+    public void onReplyListened() {
         replyPagerAdapter.onListen();
     }
 
@@ -146,6 +154,7 @@ public class MainActivity extends BaseActivity implements MainView, MainNavigato
 
     private void initializeSearchView() {
         searchView.setIconified(false);
+        searchView.requestFocusFromTouch();
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String s) {

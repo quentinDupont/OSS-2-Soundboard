@@ -4,20 +4,29 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/parameter_title_padding"
+        android:layout_marginTop="@dimen/parameter_title_padding"
+        android:paddingEnd="@dimen/parameter_title_padding"
+        android:paddingStart="@dimen/parameter_title_padding"
+        android:text="@string/parameters"
+        android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+        android:textColor="@color/colorPrimaryDark" />
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/parameter_item_padding"
-        android:layout_marginTop="@dimen/parameter_item_padding"
         android:paddingEnd="@dimen/parameter_item_padding"
         android:paddingStart="@dimen/parameter_item_padding">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
             android:layout_centerVertical="true"
-            android:text="@string/multi_listen" />
+            android:text="@string/multi_listen"
+            android:textAppearance="@style/TextAppearance.AppCompat.Subhead" />
 
         <Switch
             android:id="@+id/fragment_parameter_multi_listen_switch"
@@ -26,27 +35,50 @@
             android:layout_alignParentEnd="true" />
     </RelativeLayout>
 
-    <LinearLayout
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/parameter_title_padding"
+        android:layout_marginTop="@dimen/parameter_title_padding"
+        android:paddingEnd="@dimen/parameter_title_padding"
+        android:paddingStart="@dimen/parameter_title_padding"
+        android:text="@string/statistics"
+        android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+        android:textColor="@color/colorPrimaryDark" />
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingEnd="@dimen/parameter_item_padding"
+        android:paddingStart="@dimen/parameter_item_padding"
+        android:text="@string/most_listened_reply"
+        android:textAppearance="@style/TextAppearance.AppCompat.Subhead" />
+
+    <TextView
+        android:id="@+id/fragment_parameter_most_listened_reply_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/parameter_item_padding"
-        android:layout_marginTop="@dimen/parameter_item_padding"
+        android:gravity="end"
         android:paddingEnd="@dimen/parameter_item_padding"
-        android:orientation="horizontal"
-        android:paddingStart="@dimen/parameter_item_padding">
+        android:paddingStart="@dimen/parameter_item_padding" />
 
-        <TextView
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="wrap_content"
-            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-            android:text="@string/most_listened_reply" />
 
-        <TextView
-            android:id="@+id/fragment_parameter_most_listened_reply_name"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:gravity="end"
-            android:layout_height="wrap_content" />
-    </LinearLayout>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingEnd="@dimen/parameter_item_padding"
+        android:paddingStart="@dimen/parameter_item_padding"
+        android:text="@string/total_reply_time"
+        android:textAppearance="@style/TextAppearance.AppCompat.Subhead" />
+
+    <TextView
+        android:id="@+id/fragment_parameter_total_reply_time"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/parameter_item_padding"
+        android:gravity="end"
+        android:paddingEnd="@dimen/parameter_item_padding"
+        android:paddingStart="@dimen/parameter_item_padding" />
 </LinearLayout>

@@ -1,6 +1,7 @@
 package fr.legrand.oss117soundboard.data.repository;
 
 import java.util.List;
+import java.util.concurrent.Callable;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -79,5 +80,15 @@ public class ContentRepositoryImpl implements ContentRepository {
             databaseManager.incrementReplyListenCount(replyId);
             return Completable.complete();
         });
+    }
+
+    @Override
+    public void increaseTotalReplyTime(long duration) {
+        sharedPrefManager.increaseTotalReplyTime(duration);
+    }
+
+    @Override
+    public Observable<Long> getTotalReplyTime() {
+        return Observable.fromCallable(() -> sharedPrefManager.getTotalReplyTime());
     }
 }

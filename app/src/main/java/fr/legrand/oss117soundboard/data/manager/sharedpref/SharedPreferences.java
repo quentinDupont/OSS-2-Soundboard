@@ -12,4 +12,8 @@ public interface SharedPreferences {
     boolean isMultiListenEnabled();
 
     void setMultiListenEnabled(boolean multiListenEnabled);
+
+    long getTotalReplyTime();
+
+    void setTotalReplyTime(long l);
 }
