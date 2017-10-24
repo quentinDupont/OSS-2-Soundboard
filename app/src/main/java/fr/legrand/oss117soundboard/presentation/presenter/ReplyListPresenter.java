@@ -171,8 +171,8 @@ public class ReplyListPresenter implements BasePresenter {
 
                     @Override
                     public void onComplete() {
+                        mainNavigatorListener.onReplyClicked();
                         listenToReply(replyId);
-
                     }
 
                     @Override
@@ -187,7 +187,6 @@ public class ReplyListPresenter implements BasePresenter {
                 .subscribe(new CompletableObserver() {
                     @Override
                     public void onSubscribe(Disposable d) {
-
                     }
 
                     @Override

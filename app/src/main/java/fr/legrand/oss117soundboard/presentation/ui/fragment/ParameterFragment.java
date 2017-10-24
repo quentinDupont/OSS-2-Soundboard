@@ -12,6 +12,7 @@ import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import fr.legrand.oss117soundboard.R;
 import fr.legrand.oss117soundboard.presentation.presenter.ParameterPresenter;
 import fr.legrand.oss117soundboard.presentation.ui.listener.OnListenReplyListener;
@@ -87,9 +88,18 @@ public class ParameterFragment extends BaseFragment implements ParameterView, On
     }
 
     @Override
-    public void onListen() {
+    public void onReplyClicked() {
         parameterPresenter.getMostListenedReply();
+    }
+
+    @Override
+    public void onReplyListened() {
         parameterPresenter.getTotalReplyTime();
+    }
+
+    @OnClick(R.id.fragment_parameter_random_reply)
+    public void randomReplyClicked(){
+        parameterPresenter.listenToRandomReply();
     }
 
     public void initializeSwitch() {
@@ -97,4 +107,6 @@ public class ParameterFragment extends BaseFragment implements ParameterView, On
             parameterPresenter.updateMultiListenParameter(isChecked);
         });
     }
+
+
 }

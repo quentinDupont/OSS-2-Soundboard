@@ -6,7 +6,6 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.SearchView;
@@ -55,8 +54,6 @@ public class MainActivity extends BaseActivity implements MainView, MainNavigato
     RelativeLayout toolbarSearchLayout;
     @BindView(R.id.activity_main_toolbar_search_view)
     SearchView searchView;
-    @BindView(R.id.activity_main_toolbar_search_back)
-    ImageView searchBack;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -117,10 +114,36 @@ public class MainActivity extends BaseActivity implements MainView, MainNavigato
         });
     }
 
+
+    @Override
+    public void updateAllLayout() {
+        replyPagerAdapter.onSearch(searchView.getQuery().toString(), false);
+    }
+
+    @Override
+    public void onReplyListened() {
+        replyPagerAdapter.onReplyListened();
+    }
+
+    @Override
+    public void onReplyClicked() {
+        replyPagerAdapter.onReplyClicked();
+    }
+
+    @Override
+    public View getRootView() {
+        return rootLayout;
+    }
+
     @OnClick(R.id.activity_main_search_button)
     public void searchButtonClicked() {
         initializeSearchView();
         updateToolbarLayout(false);
+    }
+
+    @OnClick(R.id.activity_main_toolbar_stop_listen)
+    public void stopListenButtonClicked() {
+        mainPresenter.stopListen();
     }
 
     @OnClick(R.id.activity_main_toolbar_search_back)
@@ -132,20 +155,6 @@ public class MainActivity extends BaseActivity implements MainView, MainNavigato
         updateToolbarLayout(true);
     }
 
-    @Override
-    public void updateAllLayout() {
-        replyPagerAdapter.onSearch(searchView.getQuery().toString(), false);
-    }
-
-    @Override
-    public void onReplyListened() {
-        replyPagerAdapter.onListen();
-    }
-
-    @Override
-    public View getRootView() {
-        return rootLayout;
-    }
 
     private void updateToolbarLayout(boolean displayBaseLayout) {
         toolbarBaseLayout.setVisibility(displayBaseLayout ? View.VISIBLE : View.GONE);

@@ -8,4 +8,5 @@ public interface MainNavigatorListener extends BaseNavigatorListener{
     void updateAllLayout();
 
     void onReplyListened();
+    void onReplyClicked();
 }

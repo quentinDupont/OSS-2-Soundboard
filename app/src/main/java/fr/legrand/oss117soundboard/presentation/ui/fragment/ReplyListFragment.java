@@ -36,13 +36,13 @@ public class ReplyListFragment extends BaseFragment implements ReplyListView, Re
 
     private static final String FAVORITE_KEY = "fr.legrand.oss117soundboard.presentation.ui.fragment.ReplyListFragment.FAVORITE_KEY";
 
-    @BindView(R.id.fragment_home_search_recycler)
+    @BindView(R.id.fragment_reply_list_recycler)
     RecyclerView searchRecycler;
-    @BindView(R.id.fragment_home_search_placeholder)
+    @BindView(R.id.fragment_reply_list_placeholder)
     RelativeLayout searchPlaceholder;
-    @BindView(R.id.fragment_home_search_placeholder_image)
+    @BindView(R.id.fragment_reply_list_placeholder_image)
     ImageView searchPlaceholderImage;
-    @BindView(R.id.fragment_home_search_placeholder_text)
+    @BindView(R.id.fragment_reply_list_placeholder_text)
     TextView searchPlaceholderText;
 
     @Inject

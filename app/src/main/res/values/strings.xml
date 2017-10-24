@@ -576,6 +576,8 @@
     <string name="torturepsychologique_desc">Non non c\'était de la torture psychologique.</string>
     <string name="sortidesoncontexte_title">Sorti de son contexte…</string>
     <string name="sortidesoncontexte_desc">Sorti de son contexte, un doigt dans les fesses, ça peut être… Je préfère que ce soit plus clair parce qu\'on a tendance parfois à se faire des idées…</string>
+    <string name="others">Autres</string>
+    <string name="random_reply">Ecouter une réplique aléatoire</string>
 
 
 </resources>

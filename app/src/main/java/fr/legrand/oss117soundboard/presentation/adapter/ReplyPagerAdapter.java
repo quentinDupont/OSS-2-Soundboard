@@ -93,14 +93,21 @@ public class ReplyPagerAdapter extends FragmentStatePagerAdapter {
         }
     }
 
-    public void onListen() {
+    public void onReplyListened() {
         for (int i = 0; i < listenListenerList.size(); i++) {
             //No need to handle removal from list for now because all fragments are instantiated at the beginning
-            listenListenerList.get(i).onListen();
+            listenListenerList.get(i).onReplyListened();
         }
     }
 
     public void setCurrentPosition(int currentPosition) {
         this.currentPosition = currentPosition;
+    }
+
+    public void onReplyClicked() {
+        for (int i = 0; i < listenListenerList.size(); i++) {
+            //No need to handle removal from list for now because all fragments are instantiated at the beginning
+            listenListenerList.get(i).onReplyClicked();
+        }
     }
 }

@@ -7,12 +7,12 @@
 
 
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/fragment_home_search_recycler"
+        android:id="@+id/fragment_reply_list_recycler"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
     <RelativeLayout
-        android:id="@+id/fragment_home_search_placeholder"
+        android:id="@+id/fragment_reply_list_placeholder"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:visibility="gone">
@@ -22,7 +22,7 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true">
             <ImageView
-                android:id="@+id/fragment_home_search_placeholder_image"
+                android:id="@+id/fragment_reply_list_placeholder_image"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
@@ -30,13 +30,13 @@
                 android:src="@mipmap/reply_list_placeholder" />
 
             <TextView
-                android:id="@+id/fragment_home_search_placeholder_text"
+                android:id="@+id/fragment_reply_list_placeholder_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/placeholder_text_color"
                 android:textSize="@dimen/placeholder_text_size"
                 android:text="@string/no_reply_available_no_text"
-                android:layout_below="@id/fragment_home_search_placeholder_image"
+                android:layout_below="@id/fragment_reply_list_placeholder_image"
                 android:layout_centerHorizontal="true" />
         </RelativeLayout>
 

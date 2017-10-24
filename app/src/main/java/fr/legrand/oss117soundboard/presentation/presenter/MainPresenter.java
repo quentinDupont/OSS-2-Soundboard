@@ -73,4 +73,8 @@ public class MainPresenter implements BasePresenter {
     public void setMainView(MainView mainView) {
         this.mainView = mainView;
     }
+
+    public void stopListen() {
+        mediaPlayerComponent.releaseAllRunningPlayer();
+    }
 }

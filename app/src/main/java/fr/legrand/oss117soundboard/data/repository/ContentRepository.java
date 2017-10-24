@@ -30,4 +30,6 @@ public interface ContentRepository {
     void increaseTotalReplyTime(long duration);
 
     Observable<Long> getTotalReplyTime();
+
+    Observable<Integer> getRandomReplyIdToListen();
 }

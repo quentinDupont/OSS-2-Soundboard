@@ -9,8 +9,6 @@ import io.reactivex.Completable;
 public interface MediaPlayerComponent {
     Completable playSoundMedia(int mediaId);
 
-    void releaseCurrentMediaPlayer();
-
     void releaseAllRunningPlayer();
 
     boolean isPlayerCurrentlyRunning();

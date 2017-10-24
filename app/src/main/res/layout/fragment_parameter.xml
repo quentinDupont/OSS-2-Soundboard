@@ -18,6 +18,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/parameter_item_padding"
         android:paddingEnd="@dimen/parameter_item_padding"
         android:paddingStart="@dimen/parameter_item_padding">
 
@@ -69,6 +70,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingEnd="@dimen/parameter_item_padding"
+        android:paddingTop="@dimen/parameter_item_padding"
         android:paddingStart="@dimen/parameter_item_padding"
         android:text="@string/total_reply_time"
         android:textAppearance="@style/TextAppearance.AppCompat.Subhead" />
@@ -81,4 +83,26 @@
         android:gravity="end"
         android:paddingEnd="@dimen/parameter_item_padding"
         android:paddingStart="@dimen/parameter_item_padding" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/parameter_title_padding"
+        android:layout_marginTop="@dimen/parameter_title_padding"
+        android:paddingEnd="@dimen/parameter_title_padding"
+        android:paddingStart="@dimen/parameter_title_padding"
+        android:text="@string/others"
+        android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+        android:textColor="@color/colorPrimaryDark" />
+
+    <TextView
+        android:id="@+id/fragment_parameter_random_reply"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingEnd="@dimen/parameter_item_padding"
+        android:paddingTop="@dimen/parameter_item_padding"
+        android:paddingBottom="@dimen/parameter_item_padding"
+        android:paddingStart="@dimen/parameter_item_padding"
+        android:text="@string/random_reply"
+        android:textAppearance="@style/TextAppearance.AppCompat.Subhead" />
 </LinearLayout>

@@ -5,5 +5,6 @@ package fr.legrand.oss117soundboard.presentation.ui.listener;
  */
 
 public interface OnListenReplyListener {
-    void onListen();
+    void onReplyListened();
+    void onReplyClicked();
 }

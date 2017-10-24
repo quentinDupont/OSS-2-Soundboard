@@ -2,6 +2,8 @@ package fr.legrand.oss117soundboard.data.entity;
 
 import com.google.android.exoplayer2.SimpleExoPlayer;
 
+import io.reactivex.Completable;
+
 /**
  * Created by Benjamin on 17/10/2017.
  */

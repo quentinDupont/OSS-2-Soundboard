@@ -2,6 +2,7 @@ package fr.legrand.oss117soundboard.data.repository;
 
 import java.util.List;
 import java.util.concurrent.Callable;
+import java.util.concurrent.ThreadLocalRandom;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -12,6 +13,7 @@ import fr.legrand.oss117soundboard.data.manager.file.FileManager;
 import fr.legrand.oss117soundboard.data.manager.sharedpref.SharedPrefManager;
 import io.reactivex.Completable;
 import io.reactivex.Observable;
+import io.reactivex.ObservableSource;
 
 /**
  * Created by Benjamin on 30/09/2017.
@@ -90,5 +92,16 @@ public class ContentRepositoryImpl implements ContentRepository {
     @Override
     public Observable<Long> getTotalReplyTime() {
         return Observable.fromCallable(() -> sharedPrefManager.getTotalReplyTime());
+    }
+
+    @Override
+    public Observable<Integer> getRandomReplyIdToListen() {
+        return Observable.defer(() -> {
+            List<Reply> replyList = databaseManager.getAllReply();
+            int randomNumber = ThreadLocalRandom.current().nextInt(0, replyList.size() + 1);
+            int replyId = replyList.get(randomNumber).getId();
+            databaseManager.incrementReplyListenCount(replyId);
+            return Observable.just(replyId);
+        });
     }
 }

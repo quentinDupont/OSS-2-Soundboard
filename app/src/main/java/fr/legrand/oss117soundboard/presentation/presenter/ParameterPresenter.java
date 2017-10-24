@@ -6,6 +6,8 @@ import fr.legrand.oss117soundboard.data.entity.Reply;
 import fr.legrand.oss117soundboard.data.exception.NoListenedReplyException;
 import fr.legrand.oss117soundboard.data.repository.ContentRepository;
 import fr.legrand.oss117soundboard.presentation.component.MediaPlayerComponent;
+import fr.legrand.oss117soundboard.presentation.navigator.listener.BaseNavigatorListener;
+import fr.legrand.oss117soundboard.presentation.navigator.listener.MainNavigatorListener;
 import fr.legrand.oss117soundboard.presentation.ui.view.viewinterface.ParameterView;
 import fr.legrand.oss117soundboard.presentation.ui.view.viewmodel.ReplyViewModel;
 import io.reactivex.CompletableObserver;
@@ -24,15 +26,16 @@ public class ParameterPresenter implements BasePresenter {
     private final static long MS_TO_M = 60 * 1000;
     private final static long MS_TO_H = 60 * 60 * 1000;
     private final static long M_S_MODULO_VALUE = 60;
-    private final static long H_MODULO_VALUE = 24;
 
     private ContentRepository contentRepository;
     private MediaPlayerComponent mediaPlayerComponent;
+    private MainNavigatorListener mainNavigatorListener;
 
     private ParameterView parameterView;
 
     @Inject
-    public ParameterPresenter(ContentRepository contentRepository, MediaPlayerComponent mediaPlayerComponent) {
+    public ParameterPresenter(BaseNavigatorListener baseNavigatorListener, ContentRepository contentRepository, MediaPlayerComponent mediaPlayerComponent) {
+        this.mainNavigatorListener = (MainNavigatorListener) baseNavigatorListener;
         this.contentRepository = contentRepository;
         this.mediaPlayerComponent = mediaPlayerComponent;
     }
@@ -127,7 +130,7 @@ public class ParameterPresenter implements BasePresenter {
 
                     @Override
                     public void onNext(Long totalTime) {
-                        parameterView.updateTotalReplyTime(totalTime / MS_TO_H % H_MODULO_VALUE, totalTime / MS_TO_M % M_S_MODULO_VALUE, totalTime / MS_TO_S % M_S_MODULO_VALUE);
+                        parameterView.updateTotalReplyTime(totalTime / MS_TO_H, totalTime / MS_TO_M % M_S_MODULO_VALUE, totalTime / MS_TO_S % M_S_MODULO_VALUE);
                     }
 
                     @Override
@@ -137,6 +140,55 @@ public class ParameterPresenter implements BasePresenter {
 
                     @Override
                     public void onComplete() {
+
+                    }
+                });
+    }
+
+    public void listenToRandomReply() {
+        contentRepository.getRandomReplyIdToListen().subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<Integer>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(Integer replyId) {
+                        mainNavigatorListener.onReplyClicked();
+                        listenToReply(replyId);
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
+
+    }
+
+    private void listenToReply(int replyId) {
+        mediaPlayerComponent.playSoundMedia(replyId).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new CompletableObserver() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onComplete() {
+                        if (!mediaPlayerComponent.isPlayerCurrentlyRunning()) {
+                            mainNavigatorListener.onReplyListened();
+                        }
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
 
                     }
                 });

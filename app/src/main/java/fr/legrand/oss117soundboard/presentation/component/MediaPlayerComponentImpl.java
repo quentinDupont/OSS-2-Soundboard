@@ -21,9 +21,7 @@ import com.google.android.exoplayer2.upstream.DataSpec;
 import com.google.android.exoplayer2.upstream.RawResourceDataSource;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
-import java.util.concurrent.Callable;
 
 import javax.inject.Inject;
 
@@ -32,9 +30,6 @@ import fr.legrand.oss117soundboard.data.repository.ContentRepository;
 import fr.legrand.oss117soundboard.presentation.di.PerActivity;
 import fr.legrand.oss117soundboard.presentation.ui.activity.BaseActivity;
 import io.reactivex.Completable;
-import io.reactivex.CompletableEmitter;
-import io.reactivex.CompletableOnSubscribe;
-import io.reactivex.CompletableSource;
 
 /**
  * Created by Benjamin on 30/09/2017.
@@ -46,7 +41,6 @@ public class MediaPlayerComponentImpl implements MediaPlayerComponent {
     private static final int MULTI_LISTEN_NUMBER_LIMIT = 8;
 
     private BaseActivity activity;
-    private SimpleExoPlayer mediaPlayer;
 
     private ContentRepository contentRepository;
     private ErrorComponent errorComponent;
@@ -61,102 +55,89 @@ public class MediaPlayerComponentImpl implements MediaPlayerComponent {
         this.contentRepository = contentRepository;
         this.errorComponent = errorComponent;
         this.runningMediaPlayerList = new ArrayList<>();
+        this.startListenTimestamp = 0;
     }
 
     @Override
     public Completable playSoundMedia(int mediaId) {
+
+
         return Completable.create(emitter -> {
-            if (!contentRepository.isMultiListenEnabled()) {
-                releaseCurrentMediaPlayer();
-            }
             TrackSelection.Factory videoTrackSelectionFactory = new AdaptiveTrackSelection.Factory(null);
             TrackSelector trackSelector = new DefaultTrackSelector(videoTrackSelectionFactory);
-            mediaPlayer = ExoPlayerFactory.newSimpleInstance(activity, trackSelector);
-
+            SimpleExoPlayer simpleExoPlayer = ExoPlayerFactory.newSimpleInstance(activity, trackSelector);
             Uri soundUri = RawResourceDataSource.buildRawResourceUri(mediaId);
             RawResourceDataSource dataSource = new RawResourceDataSource(activity);
 
             try {
                 dataSource.open(new DataSpec(soundUri));
                 ExtractorMediaSource soundSource = new ExtractorMediaSource(soundUri, () -> dataSource, Mp3Extractor.FACTORY, null, null);
-
-                if (runningMediaPlayerList.size() >= MULTI_LISTEN_NUMBER_LIMIT) {
-                    removeRunningPlayerFromFullList();
-                }
-                mediaPlayer.addListener(new Player.EventListener() {
-                    @Override
-                    public void onTimelineChanged(Timeline timeline, Object o) {
-
-                    }
-
-                    @Override
-                    public void onTracksChanged(TrackGroupArray trackGroupArray, TrackSelectionArray trackSelectionArray) {
-
-                    }
-
-                    @Override
-                    public void onLoadingChanged(boolean b) {
-
-                    }
-
-                    @Override
-                    public void onPlayerStateChanged(boolean b, int state) {
-                        if (state == ExoPlayer.STATE_ENDED) {
-                            removeRunningPlayer(mediaId);
-                            emitter.onComplete();
-                        }
-                    }
-
-                    @Override
-                    public void onRepeatModeChanged(int i) {
-
-                    }
-
-                    @Override
-                    public void onPlayerError(ExoPlaybackException e) {
-                        errorComponent.displayListenErrorSnackbar();
-                        emitter.onError(e);
-                    }
-
-                    @Override
-                    public void onPositionDiscontinuity() {
-
-                    }
-
-                    @Override
-                    public void onPlaybackParametersChanged(PlaybackParameters playbackParameters) {
-
-                    }
-                });
-                mediaPlayer.prepare(soundSource);
-                mediaPlayer.setPlayWhenReady(true);
+                simpleExoPlayer.prepare(soundSource);
+                simpleExoPlayer.setPlayWhenReady(true);
                 if (startListenTimestamp == 0) {
                     startListenTimestamp = System.currentTimeMillis();
                 }
-                runningMediaPlayerList.add(new RunningPlayer(mediaPlayer, mediaId));
+                if (runningMediaPlayerList.size() >= MULTI_LISTEN_NUMBER_LIMIT) {
+                    stopRunningPlayer(0);
+                }
             } catch (Exception e) {
                 errorComponent.displayListenErrorSnackbar();
-                emitter.onError(e);
             }
+            simpleExoPlayer.addListener(new Player.EventListener() {
+                @Override
+                public void onTimelineChanged(Timeline timeline, Object o) {
+                }
+
+                @Override
+                public void onTracksChanged(TrackGroupArray trackGroupArray, TrackSelectionArray trackSelectionArray) {
+                }
+
+                @Override
+                public void onLoadingChanged(boolean b) {
+                }
+
+                @Override
+                public void onPlayerStateChanged(boolean b, int state) {
+                    //Media ended or we used the stop() method
+                    if (state == ExoPlayer.STATE_ENDED || state == ExoPlayer.STATE_IDLE) {
+                        releaseRunningPlayerById(mediaId);
+                        emitter.onComplete();
+                    }
+                }
+
+                @Override
+                public void onRepeatModeChanged(int i) {
+                }
+
+                @Override
+                public void onPlayerError(ExoPlaybackException e) {
+                    errorComponent.displayListenErrorSnackbar();
+                    emitter.onError(e);
+                }
+
+                @Override
+                public void onPositionDiscontinuity() {
+                }
+
+                @Override
+                public void onPlaybackParametersChanged(PlaybackParameters playbackParameters) {
+                }
+            });
+
+            if (!contentRepository.isMultiListenEnabled() && !runningMediaPlayerList.isEmpty()) {
+                stopRunningPlayer(0);
+            }
+            runningMediaPlayerList.add(new RunningPlayer(simpleExoPlayer, mediaId));
         });
-
-    }
-
-    @Override
-    public void releaseCurrentMediaPlayer() {
-        if (mediaPlayer != null) {
-            mediaPlayer.release();
-            mediaPlayer = null;
-            runningMediaPlayerList.clear();
-        }
     }
 
     @Override
     public void releaseAllRunningPlayer() {
-        for (RunningPlayer runningPlayer : runningMediaPlayerList) {
-            runningPlayer.getSimpleExoPlayer().release();
+        for (int i = 0; i < runningMediaPlayerList.size(); i++) {
+            //stop() method will trigger the callback in SimpleExoPlayer listener with STATE_IDLE
+            //The releasing of the player will be done in this callback
+            stopRunningPlayer(i);
         }
-        runningMediaPlayerList.clear();
     }
 
     @Override
@@ -164,14 +145,19 @@ public class MediaPlayerComponentImpl implements MediaPlayerComponent {
         return !runningMediaPlayerList.isEmpty();
     }
 
-    private void removeRunningPlayer(int mediaId) {
-        for (Iterator<RunningPlayer> iterator = runningMediaPlayerList.iterator(); iterator.hasNext(); ) {
-            RunningPlayer runningPlayer = iterator.next();
-            if (runningPlayer.getMediaId() == mediaId) {
-                iterator.remove();
-                releaseMediaPlayer(runningPlayer.getSimpleExoPlayer());
-                break;
+    private void releaseRunningPlayerById(int mediaId) {
+        for (int i = 0; i < runningMediaPlayerList.size(); i++) {
+            if (runningMediaPlayerList.get(i).getMediaId() == mediaId) {
+                releaseRunningPlayer(i);
             }
+        }
+    }
+
+    private void releaseRunningPlayer(int position) {
+        if (position < runningMediaPlayerList.size()) {
+            RunningPlayer runningPlayer = runningMediaPlayerList.get(position);
+            runningMediaPlayerList.remove(position);
+            runningPlayer.getSimpleExoPlayer().release();
         }
         if (runningMediaPlayerList.isEmpty()) {
             contentRepository.increaseTotalReplyTime(System.currentTimeMillis() - startListenTimestamp);
@@ -179,14 +165,10 @@ public class MediaPlayerComponentImpl implements MediaPlayerComponent {
         }
     }
 
-    private void removeRunningPlayerFromFullList() {
-        releaseMediaPlayer(runningMediaPlayerList.get(0).getSimpleExoPlayer());
-        runningMediaPlayerList.remove(0);
-    }
-
-    private void releaseMediaPlayer(SimpleExoPlayer mediaPlayer) {
-        if (mediaPlayer != null) {
-            mediaPlayer.release();
+    private void stopRunningPlayer(int position) {
+        if (position < runningMediaPlayerList.size()) {
+            //stop() method will call the callback in SimpleExoPlayer listener with STATE_IDLE
+            runningMediaPlayerList.get(position).getSimpleExoPlayer().stop();
         }
     }
 }

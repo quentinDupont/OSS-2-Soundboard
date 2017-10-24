@@ -4,8 +4,8 @@
     android:id="@+id/main_activity_root_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/white"
-    android:animateLayoutChanges="true">
+    android:animateLayoutChanges="true"
+    android:background="@android:color/white">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/activity_main_toolbar"
@@ -14,52 +14,68 @@
         android:background="@color/colorPrimary">
 
         <RelativeLayout
-            android:id="@+id/activity_main_toolbar_layout_base"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginEnd="@dimen/toolbar_item_margin"
-            android:visibility="visible">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:text="@string/app_name"
-                android:textAppearance="@style/TextAppearance.AppCompat.Title"
-                android:textColor="@android:color/white" />
+            android:layout_height="wrap_content">
 
             <ImageView
-                android:id="@+id/activity_main_search_button"
+                android:id="@+id/activity_main_toolbar_stop_listen"
                 android:layout_width="@dimen/toolbar_item_size"
                 android:layout_height="@dimen/toolbar_item_size"
                 android:layout_alignParentEnd="true"
                 android:padding="@dimen/toolbar_icon_padding"
-                android:src="@drawable/ic_search" />
-        </RelativeLayout>
+                android:src="@drawable/ic_stop_listen" />
 
-        <RelativeLayout
-            android:id="@+id/activity_main_toolbar_layout_search"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/toolbar_item_margin"
-            android:visibility="gone">
-
-            <ImageView
-                android:id="@+id/activity_main_toolbar_search_back"
-                android:layout_width="@dimen/toolbar_item_size"
-                android:layout_height="@dimen/toolbar_item_size"
-                android:padding="@dimen/toolbar_icon_padding"
-                android:src="@drawable/ic_back" />
-
-            <SearchView
-                android:id="@+id/activity_main_toolbar_search_view"
+            <RelativeLayout
+                android:id="@+id/activity_main_toolbar_layout_base"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:iconifiedByDefault="true"
-                android:layout_toEndOf="@id/activity_main_toolbar_search_back"
-                android:queryHint="@string/search_reply" />
+                android:layout_toStartOf="@id/activity_main_toolbar_stop_listen"
+                android:visibility="visible">
 
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:text="@string/app_name"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                    android:textColor="@android:color/white" />
+
+                <ImageView
+                    android:id="@+id/activity_main_search_button"
+                    android:layout_width="@dimen/toolbar_item_size"
+                    android:layout_height="@dimen/toolbar_item_size"
+                    android:layout_alignParentEnd="true"
+                    android:padding="@dimen/toolbar_icon_padding"
+                    android:src="@drawable/ic_search" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/activity_main_toolbar_layout_search"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_toStartOf="@id/activity_main_toolbar_stop_listen"
+                android:visibility="gone">
+
+                <ImageView
+                    android:id="@+id/activity_main_toolbar_search_back"
+                    android:layout_width="@dimen/toolbar_item_size"
+                    android:layout_height="@dimen/toolbar_item_size"
+                    android:padding="@dimen/toolbar_icon_padding"
+                    android:src="@drawable/ic_back" />
+
+                <SearchView
+                    android:id="@+id/activity_main_toolbar_search_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_toEndOf="@id/activity_main_toolbar_search_back"
+                    android:iconifiedByDefault="true"
+                    android:queryHint="@string/search_reply" />
+
+
+            </RelativeLayout>
         </RelativeLayout>
+
 
     </android.support.v7.widget.Toolbar>
 
@@ -68,20 +84,20 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:indeterminate="true"/>
+        android:indeterminate="true" />
 
     <android.support.design.widget.TabLayout
         android:id="@+id/main_tab_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/activity_main_toolbar"
+        android:visibility="gone"
         app:tabBackground="@color/colorPrimary"
         app:tabGravity="fill"
         app:tabIndicatorColor="@android:color/white"
         app:tabMode="fixed"
         app:tabSelectedTextColor="@android:color/white"
-        app:tabTextColor="@color/colorPrimaryLight"
-        android:visibility="gone"/>
+        app:tabTextColor="@color/colorPrimaryLight" />
 
 
     <android.support.v4.view.ViewPager
