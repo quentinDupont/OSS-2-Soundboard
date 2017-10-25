@@ -121,6 +121,11 @@ public class MainActivity extends BaseActivity implements MainView, MainNavigato
     }
 
     @Override
+    public void updateCurrentLayout() {
+        replyPagerAdapter.onSearchCurrent(searchView.getQuery().toString());
+    }
+
+    @Override
     public void onReplyListened() {
         replyPagerAdapter.onReplyListened();
     }

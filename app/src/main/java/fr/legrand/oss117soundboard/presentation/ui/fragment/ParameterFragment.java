@@ -1,18 +1,13 @@
 package fr.legrand.oss117soundboard.presentation.ui.fragment;
 
 import android.os.Bundle;
+import android.preference.ListPreference;
+import android.preference.Preference;
+import android.preference.SwitchPreference;
 import android.support.annotation.Nullable;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Switch;
-import android.widget.TextView;
 
 import javax.inject.Inject;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
 import fr.legrand.oss117soundboard.R;
 import fr.legrand.oss117soundboard.presentation.presenter.ParameterPresenter;
 import fr.legrand.oss117soundboard.presentation.ui.listener.OnListenReplyListener;
@@ -23,19 +18,16 @@ import fr.legrand.oss117soundboard.presentation.ui.view.viewmodel.ReplyViewModel
  * Created by Benjamin on 17/10/2017.
  */
 
-public class ParameterFragment extends BaseFragment implements ParameterView, OnListenReplyListener {
+public class ParameterFragment extends BasePreferenceFragment implements ParameterView, OnListenReplyListener {
 
     @Inject
     ParameterPresenter parameterPresenter;
 
-    @BindView(R.id.fragment_parameter_multi_listen_switch)
-    Switch multiListenSwitch;
-
-    @BindView(R.id.fragment_parameter_most_listened_reply_name)
-    TextView mostListenedReplyName;
-
-    @BindView(R.id.fragment_parameter_total_reply_time)
-    TextView totalReplyTime;
+    private SwitchPreference multiListenPreference;
+    private ListPreference replySortPreference;
+    private Preference mostListenedReplyPreference;
+    private Preference totalReplyTimePreference;
+    private Preference randomReplyPreference;
 
     public static ParameterFragment newInstance() {
 
@@ -47,16 +39,13 @@ public class ParameterFragment extends BaseFragment implements ParameterView, On
     }
 
 
-    @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
-        View view = LayoutInflater.from(getActivity()).inflate(R.layout.fragment_parameter, container, false);
-        ButterKnife.bind(this, view);
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        addPreferencesFromResource(R.xml.preferences);
         getFragmentComponent().inject(this);
-
         parameterPresenter.setParameterView(this);
-        initializeSwitch();
-        return view;
+        initializePreferences();
     }
 
     @Override
@@ -65,26 +54,31 @@ public class ParameterFragment extends BaseFragment implements ParameterView, On
         parameterPresenter.checkMultiListenEnabled();
         parameterPresenter.getMostListenedReply();
         parameterPresenter.getTotalReplyTime();
+        parameterPresenter.getReplySort();
     }
-
 
     @Override
     public void updateSwitch(boolean checked) {
-        multiListenSwitch.setChecked(checked);
+        multiListenPreference.setChecked(checked);
     }
 
     @Override
     public void updateMostListenedReply(ReplyViewModel replyViewModel) {
         if (replyViewModel != null) {
-            mostListenedReplyName.setText(replyViewModel.getMostListenedText());
+            mostListenedReplyPreference.setSummary(replyViewModel.getMostListenedText());
         } else {
-            mostListenedReplyName.setText(getString(R.string.no_listened_reply));
+            mostListenedReplyPreference.setSummary(getString(R.string.no_listened_reply));
         }
     }
 
     @Override
+    public void updateReplySort(String replySort) {
+        replySortPreference.setSummary(replySort);
+    }
+
+    @Override
     public void updateTotalReplyTime(long hours, long minutes, long seconds) {
-        totalReplyTime.setText(getString(R.string.total_reply_time_text, hours, minutes, seconds));
+        totalReplyTimePreference.setSummary(getString(R.string.total_reply_time_text, hours, minutes, seconds));
     }
 
     @Override
@@ -97,16 +91,26 @@ public class ParameterFragment extends BaseFragment implements ParameterView, On
         parameterPresenter.getTotalReplyTime();
     }
 
-    @OnClick(R.id.fragment_parameter_random_reply)
-    public void randomReplyClicked(){
-        parameterPresenter.listenToRandomReply();
-    }
+    private void initializePreferences() {
+        multiListenPreference = (SwitchPreference) this.getPreferenceManager().findPreference(getString(R.string.multi_listen_preference_key));
+        replySortPreference = (ListPreference) this.getPreferenceManager().findPreference(getString(R.string.reply_sort_preference_key));
+        mostListenedReplyPreference = this.getPreferenceManager().findPreference(getString(R.string.most_listened_reply_preference_key));
+        totalReplyTimePreference = this.getPreferenceManager().findPreference(getString(R.string.total_reply_time_preference_key));
+        randomReplyPreference = this.getPreferenceManager().findPreference(getString(R.string.random_reply_preference_key));
 
-    public void initializeSwitch() {
-        multiListenSwitch.setOnCheckedChangeListener((compoundButton, isChecked) -> {
-            parameterPresenter.updateMultiListenParameter(isChecked);
+        multiListenPreference.setOnPreferenceChangeListener((preference, newValue) -> {
+            parameterPresenter.updateMultiListenParameter((boolean) newValue);
+            return true;
+        });
+
+        randomReplyPreference.setOnPreferenceClickListener(preference -> {
+            parameterPresenter.listenToRandomReply();
+            return true;
+        });
+        replySortPreference.setOnPreferenceChangeListener((preference, newValue) -> {
+            parameterPresenter.updateReplySort((String) newValue);
+            replySortPreference.setSummary((String) newValue);
+            return true;
         });
     }
-
-
 }

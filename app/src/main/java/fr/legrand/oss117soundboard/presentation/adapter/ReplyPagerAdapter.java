@@ -14,6 +14,7 @@ import fr.legrand.oss117soundboard.R;
 import fr.legrand.oss117soundboard.presentation.di.PerActivity;
 import fr.legrand.oss117soundboard.presentation.ui.activity.BaseActivity;
 import fr.legrand.oss117soundboard.presentation.ui.fragment.BaseFragment;
+import fr.legrand.oss117soundboard.presentation.ui.fragment.BasePreferenceFragment;
 import fr.legrand.oss117soundboard.presentation.ui.fragment.ParameterFragment;
 import fr.legrand.oss117soundboard.presentation.ui.fragment.ReplyListFragment;
 import fr.legrand.oss117soundboard.presentation.ui.listener.OnListenReplyListener;
@@ -64,7 +65,7 @@ public class ReplyPagerAdapter extends FragmentStatePagerAdapter {
                 }
                 return replyFragment;
             case PARAMETER_POSITION:
-                BaseFragment parameterFragment = ParameterFragment.newInstance();
+                BasePreferenceFragment parameterFragment = ParameterFragment.newInstance();
                 if (parameterFragment instanceof OnListenReplyListener) {
                     listenListenerList.add((OnListenReplyListener) parameterFragment);
                 }
@@ -93,6 +94,15 @@ public class ReplyPagerAdapter extends FragmentStatePagerAdapter {
         }
     }
 
+    public void onSearchCurrent(String search) {
+        for (int i = 0; i < searchListenerList.size(); i++) {
+            //No need to handle removal from list for now because all fragments are instantiated at the beginning
+            if (i == currentPosition) {
+                searchListenerList.get(i).onSearch(search);
+            }
+        }
+    }
+
     public void onReplyListened() {
         for (int i = 0; i < listenListenerList.size(); i++) {
             //No need to handle removal from list for now because all fragments are instantiated at the beginning
@@ -110,4 +120,6 @@ public class ReplyPagerAdapter extends FragmentStatePagerAdapter {
             listenListenerList.get(i).onReplyClicked();
         }
     }
+
+
 }

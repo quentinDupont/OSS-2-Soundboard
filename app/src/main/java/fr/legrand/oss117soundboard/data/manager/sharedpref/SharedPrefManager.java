@@ -12,4 +12,8 @@ public interface SharedPrefManager {
     void increaseTotalReplyTime(long duration);
 
     long getTotalReplyTime();
+
+    String getReplySort();
+
+    void setReplySort(String replySort);
 }

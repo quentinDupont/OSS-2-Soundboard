@@ -6,7 +6,7 @@
     <string name="no_reply_available_no_text">Chou blanc donc…</string>
     <string name="favorite_list_title">Favoris</string>
     <string name="reply_list_title">Répliques</string>
-    <string name="delete">Supprimer</string>
+    <string name="delete">Retirer</string>
     <string name="multi_listen">Écoute multiple (8 simultanées max)</string>
     <string name="parameter_title">Paramètres</string>
     <string name="listen_error">Et là, euh… Vous faites quoi ? (Trop d\'écoutes simultanées)</string>
@@ -15,8 +15,17 @@
     <string name="most_listened_reply">Réplique la plus écoutée</string>
     <string name="total_reply_time">Temps d\'écoute total</string>
     <string name="total_reply_time_text">%1$d h %2$d m %3$d s</string>
-    <string name="parameters">Paramètres</string>
-    <string name="statistics">Statistiques</string>
+    <string name="statistics_title">Statistiques</string>
+    <string name="others_title">Autres</string>
+    <string name="random_reply">Ecouter une réplique aléatoire</string>
+    <string name="most_listened_reply_preference_key">MOST_LISTENED_REPLY_PREF_KEY</string>
+    <string name="total_reply_time_preference_key">TOTAL_REPLY_PREF_KEY</string>
+    <string name="multi_listen_preference_key">MULTI_LISTEN_PREF_KEY</string>
+    <string name="random_reply_preference_key">RANDOM_REPLY_PREF_KEY</string>
+    <string name="reply_sort_preference_key">REPLY_SORT_PREF_KEY</string>
+    <string name="reply_sort">Tri des répliques</string>
+    <string name="random_order">Aléatoire</string>
+    <string name="alphabetical_order">Ordre alphabétique</string>
 
     <!-- Replies names and description -->
     <string name="cestgentil_title">C\'est gentil</string>
@@ -576,8 +585,5 @@
     <string name="torturepsychologique_desc">Non non c\'était de la torture psychologique.</string>
     <string name="sortidesoncontexte_title">Sorti de son contexte…</string>
     <string name="sortidesoncontexte_desc">Sorti de son contexte, un doigt dans les fesses, ça peut être… Je préfère que ce soit plus clair parce qu\'on a tendance parfois à se faire des idées…</string>
-    <string name="others">Autres</string>
-    <string name="random_reply">Ecouter une réplique aléatoire</string>
-
 
 </resources>

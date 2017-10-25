@@ -87,7 +87,6 @@ public class ReplyListPresenter implements BasePresenter {
 
                     @Override
                     public void onError(Throwable e) {
-
                     }
 
                     @Override
@@ -121,7 +120,6 @@ public class ReplyListPresenter implements BasePresenter {
 
                     @Override
                     public void onError(Throwable e) {
-
                     }
 
                     @Override
@@ -180,6 +178,10 @@ public class ReplyListPresenter implements BasePresenter {
 
                     }
                 });
+    }
+
+    public void requestRefreshData() {
+        mainNavigatorListener.updateCurrentLayout();
     }
 
     private void listenToReply(int replyId) {

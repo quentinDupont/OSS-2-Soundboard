@@ -36,4 +36,14 @@ public class SharedPrefManagerImpl implements SharedPrefManager {
     public long getTotalReplyTime() {
         return sharedPreferences.getTotalReplyTime();
     }
+
+    @Override
+    public String getReplySort() {
+        return sharedPreferences.getReplySort();
+    }
+
+    @Override
+    public void setReplySort(String replySort) {
+        sharedPreferences.setReplySort(replySort);
+    }
 }

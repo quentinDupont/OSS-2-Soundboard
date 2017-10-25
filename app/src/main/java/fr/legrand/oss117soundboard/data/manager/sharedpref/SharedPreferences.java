@@ -16,4 +16,8 @@ public interface SharedPreferences {
     long getTotalReplyTime();
 
     void setTotalReplyTime(long l);
+
+    String getReplySort();
+
+    void setReplySort(String replySort);
 }

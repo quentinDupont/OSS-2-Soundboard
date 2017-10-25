@@ -27,8 +27,6 @@ public class ReplyListViewHolder extends RecyclerView.ViewHolder {
     Button listenButton;
     @BindView(R.id.reply_view_holder_favorite_button)
     Button favoriteButton;
-    @BindView(R.id.reply_view_holder_favorite_indicator)
-    ImageView favoriteIndicator;
     @BindView(R.id.reply_view_holder_description_toggle)
     ImageView descriptionToggle;
     @BindView(R.id.reply_view_holder_title_area)
@@ -47,15 +45,15 @@ public class ReplyListViewHolder extends RecyclerView.ViewHolder {
         replyDescription.setText(replyViewModel.getFormattedDescription());
         if (replyViewModel.getReply().isFavorite()) {
             favoriteButton.setText(context.getString(R.string.delete));
-            favoriteIndicator.setVisibility(View.VISIBLE);
+            favoriteButton.setCompoundDrawablesWithIntrinsicBounds(context.getDrawable(R.drawable.ic_favorite_remove), null, null, null);
         } else {
             favoriteButton.setText(context.getString(R.string.favorite));
-            favoriteIndicator.setVisibility(View.GONE);
+            favoriteButton.setCompoundDrawablesWithIntrinsicBounds(context.getDrawable(R.drawable.ic_favorite_add), null, null, null);
         }
-        if(replyViewModel.isExpanded()){
+        if (replyViewModel.isExpanded()) {
             replyDescription.setVisibility(View.VISIBLE);
             descriptionToggle.setImageResource(R.drawable.ic_toggle_up);
-        }else{
+        } else {
             replyDescription.setVisibility(View.GONE);
             descriptionToggle.setImageResource(R.drawable.ic_toggle_down);
         }

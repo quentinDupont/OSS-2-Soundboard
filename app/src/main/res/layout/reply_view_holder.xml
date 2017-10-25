@@ -38,15 +38,6 @@
                 android:layout_weight="1"
                 android:src="@drawable/ic_toggle_down" />
 
-            <ImageView
-                android:id="@+id/reply_view_holder_favorite_indicator"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_marginEnd="@dimen/card_view_margin_top_bottom"
-                android:layout_weight="1"
-                android:src="@drawable/ic_favorite_on"
-                android:visibility="gone" />
         </LinearLayout>
 
         <TextView
@@ -89,7 +80,6 @@
                 android:layout_centerVertical="true"
                 android:layout_toStartOf="@id/reply_view_holder_listen_button"
                 android:background="@null"
-                android:drawableStart="@drawable/ic_favorite_off"
                 android:text="@string/favorite" />
 
         </RelativeLayout>

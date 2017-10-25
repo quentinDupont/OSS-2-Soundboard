@@ -32,4 +32,8 @@ public interface ContentRepository {
     Observable<Long> getTotalReplyTime();
 
     Observable<Integer> getRandomReplyIdToListen();
+
+    Completable updateReplySort(String replySort);
+
+    Observable<String> getReplySort();
 }

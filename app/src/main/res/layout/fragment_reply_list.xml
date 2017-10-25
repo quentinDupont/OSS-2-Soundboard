@@ -1,46 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v4.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/fragment_reply_list_refresh_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
     android:background="@android:color/transparent">
 
-
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/fragment_reply_list_recycler"
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent">
 
-    <RelativeLayout
-        android:id="@+id/fragment_reply_list_placeholder"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:visibility="gone">
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/fragment_reply_list_recycler"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
 
         <RelativeLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true">
-            <ImageView
-                android:id="@+id/fragment_reply_list_placeholder_image"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:layout_marginBottom="@dimen/card_view_margin_top_bottom"
-                android:src="@mipmap/reply_list_placeholder" />
+            android:id="@+id/fragment_reply_list_placeholder"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone">
 
-            <TextView
-                android:id="@+id/fragment_reply_list_placeholder_text"
+            <RelativeLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/placeholder_text_color"
-                android:textSize="@dimen/placeholder_text_size"
-                android:text="@string/no_reply_available_no_text"
-                android:layout_below="@id/fragment_reply_list_placeholder_image"
-                android:layout_centerHorizontal="true" />
+                android:layout_centerInParent="true">
+
+                <ImageView
+                    android:id="@+id/fragment_reply_list_placeholder_image"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginBottom="@dimen/card_view_margin_top_bottom"
+                    android:src="@mipmap/reply_list_placeholder" />
+
+                <TextView
+                    android:id="@+id/fragment_reply_list_placeholder_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/fragment_reply_list_placeholder_image"
+                    android:layout_centerHorizontal="true"
+                    android:text="@string/no_reply_available_no_text"
+                    android:textColor="@color/placeholder_text_color"
+                    android:textSize="@dimen/placeholder_text_size" />
+            </RelativeLayout>
+
         </RelativeLayout>
+    </FrameLayout>
 
-    </RelativeLayout>
 
-
-</FrameLayout>
+</android.support.v4.widget.SwipeRefreshLayout>

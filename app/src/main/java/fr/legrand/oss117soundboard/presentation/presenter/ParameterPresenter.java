@@ -93,6 +93,31 @@ public class ParameterPresenter implements BasePresenter {
         parameterView.updateSwitch(contentRepository.isMultiListenEnabled());
     }
 
+    public void getReplySort() {
+        contentRepository.getReplySort().subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<String>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(String replySort) {
+                        parameterView.updateReplySort(replySort);
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
+    }
+
     public void getMostListenedReply() {
         contentRepository.getMostListenedReply().subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<Reply>() {
@@ -171,6 +196,27 @@ public class ParameterPresenter implements BasePresenter {
                 });
 
     }
+
+    public void updateReplySort(String replySort) {
+        contentRepository.updateReplySort(replySort).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new CompletableObserver() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onComplete() {
+                        mainNavigatorListener.updateAllLayout();
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+                });
+    }
+
 
     private void listenToReply(int replyId) {
         mediaPlayerComponent.playSoundMedia(replyId).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())

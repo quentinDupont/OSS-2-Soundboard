@@ -4,6 +4,7 @@ import android.graphics.ColorMatrix;
 import android.graphics.ColorMatrixColorFilter;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -22,8 +23,8 @@ import butterknife.ButterKnife;
 import fr.legrand.oss117soundboard.R;
 import fr.legrand.oss117soundboard.data.entity.Reply;
 import fr.legrand.oss117soundboard.presentation.adapter.ReplyListAdapter;
-import fr.legrand.oss117soundboard.presentation.ui.listener.OnSearchListener;
 import fr.legrand.oss117soundboard.presentation.presenter.ReplyListPresenter;
+import fr.legrand.oss117soundboard.presentation.ui.listener.OnSearchListener;
 import fr.legrand.oss117soundboard.presentation.ui.view.viewholder.ReplyListViewHolder;
 import fr.legrand.oss117soundboard.presentation.ui.view.viewinterface.ReplyListView;
 import fr.legrand.oss117soundboard.presentation.ui.view.viewmodel.ReplyViewModel;
@@ -36,20 +37,22 @@ public class ReplyListFragment extends BaseFragment implements ReplyListView, Re
 
     private static final String FAVORITE_KEY = "fr.legrand.oss117soundboard.presentation.ui.fragment.ReplyListFragment.FAVORITE_KEY";
 
+    @Inject
+    ReplyListPresenter replyListPresenter;
+    @Inject
+    ReplyListAdapter replyListAdapter;
+
     @BindView(R.id.fragment_reply_list_recycler)
     RecyclerView searchRecycler;
     @BindView(R.id.fragment_reply_list_placeholder)
     RelativeLayout searchPlaceholder;
+    @BindView(R.id.fragment_reply_list_refresh_layout)
+    SwipeRefreshLayout refreshLayout;
     @BindView(R.id.fragment_reply_list_placeholder_image)
     ImageView searchPlaceholderImage;
     @BindView(R.id.fragment_reply_list_placeholder_text)
     TextView searchPlaceholderText;
 
-    @Inject
-    ReplyListPresenter replyListPresenter;
-
-    @Inject
-    ReplyListAdapter replyListAdapter;
 
     public static ReplyListFragment newInstance(boolean fromFavorite) {
         Bundle args = new Bundle();
@@ -96,12 +99,14 @@ public class ReplyListFragment extends BaseFragment implements ReplyListView, Re
     public void displayPlaceholder() {
         searchRecycler.setVisibility(View.GONE);
         searchPlaceholder.setVisibility(View.VISIBLE);
+        refreshLayout.setRefreshing(false);
     }
 
     @Override
     public void displayReplyList() {
         searchRecycler.setVisibility(View.VISIBLE);
         searchPlaceholder.setVisibility(View.GONE);
+        refreshLayout.setRefreshing(false);
     }
 
     @Override
@@ -125,7 +130,18 @@ public class ReplyListFragment extends BaseFragment implements ReplyListView, Re
         replyListPresenter.updateFavoriteReply(reply.getId(), !reply.isFavorite());
     }
 
+    @Override
+    public void onSearch(String search) {
+        boolean fromFavorite = getArguments().getBoolean(FAVORITE_KEY);
+        if (search == null || search.isEmpty()) {
+            replyListPresenter.getAllReply(fromFavorite);
+        } else {
+            replyListPresenter.getAllReplyWithSearch(search, fromFavorite);
+        }
+    }
+
     private void initializeRecyclerView() {
+        refreshLayout.setOnRefreshListener(() -> replyListPresenter.requestRefreshData());
         searchRecycler.setLayoutManager(new LinearLayoutManager(getActivity()));
         searchRecycler.setAdapter(replyListAdapter);
         replyListAdapter.setOnReplyListenListener(this);
@@ -139,13 +155,5 @@ public class ReplyListFragment extends BaseFragment implements ReplyListView, Re
         searchPlaceholderImage.setImageAlpha(128);
     }
 
-    @Override
-    public void onSearch(String search) {
-        boolean fromFavorite = getArguments().getBoolean(FAVORITE_KEY);
-        if (search == null || search.isEmpty()) {
-            replyListPresenter.getAllReply(fromFavorite);
-        } else {
-            replyListPresenter.getAllReplyWithSearch(search, fromFavorite);
-        }
-    }
+
 }

@@ -17,4 +17,5 @@ public interface ReplyListView {
     void displayReplyList();
 
     void updateFavoriteReply(ReplyViewModel replyViewModel);
+
 }
