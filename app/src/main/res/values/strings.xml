@@ -26,6 +26,7 @@
     <string name="reply_sort">Tri des répliques</string>
     <string name="random_order">Aléatoire</string>
     <string name="alphabetical_order">Ordre alphabétique</string>
+    <string name="movie_order">Ordre du film</string>
 
     <!-- Replies names and description -->
     <string name="cestgentil_title">C\'est gentil</string>

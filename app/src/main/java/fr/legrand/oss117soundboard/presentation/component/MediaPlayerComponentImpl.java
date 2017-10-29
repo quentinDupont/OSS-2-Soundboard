@@ -60,8 +60,6 @@ public class MediaPlayerComponentImpl implements MediaPlayerComponent {
 
     @Override
     public Completable playSoundMedia(int mediaId) {
-
-
         return Completable.create(emitter -> {
             TrackSelection.Factory videoTrackSelectionFactory = new AdaptiveTrackSelection.Factory(null);
             TrackSelector trackSelector = new DefaultTrackSelector(videoTrackSelectionFactory);

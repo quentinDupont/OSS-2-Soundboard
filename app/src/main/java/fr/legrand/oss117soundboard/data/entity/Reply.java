@@ -29,10 +29,14 @@ public class Reply extends BaseModel {
     @Column
     private int listenCount;
 
-    public Reply(int id, String name, String description) {
+    @Column
+    private int timestamp;
+
+    public Reply(int id, String name, String description, int timestamp) {
         this.id = id;
         this.name = name;
         this.description = description;
+        this.timestamp = timestamp;
         this.favorite = false;
     }
 
@@ -83,5 +87,13 @@ public class Reply extends BaseModel {
 
     public void setListenCount(int listenCount) {
         this.listenCount = listenCount;
+    }
+
+    public int getTimestamp() {
+        return timestamp;
+    }
+
+    public void setTimestamp(int timestamp) {
+        this.timestamp = timestamp;
     }
 }

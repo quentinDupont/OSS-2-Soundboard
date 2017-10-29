@@ -21,6 +21,7 @@ import fr.legrand.oss117soundboard.presentation.navigator.MainNavigator;
 import fr.legrand.oss117soundboard.presentation.navigator.listener.MainNavigatorListener;
 import fr.legrand.oss117soundboard.presentation.presenter.MainPresenter;
 import fr.legrand.oss117soundboard.presentation.ui.view.viewinterface.MainView;
+import fr.legrand.oss117soundboard.presentation.utils.StringUtils;
 
 /**
  * Created by Benjamin on 30/09/2017.
@@ -173,16 +174,15 @@ public class MainActivity extends BaseActivity implements MainView, MainNavigato
             @Override
             public boolean onQueryTextSubmit(String s) {
                 searchView.clearFocus();
+                if (s.matches(StringUtils.SEARCH_EASTER_EGG_REGEX)) {
+                    mainNavigator.launchBrowsingApp();
+                }
                 return true;
             }
 
             @Override
             public boolean onQueryTextChange(String s) {
-                if (s.equals(getString(R.string.easter_egg_search))) {
-                    mainNavigator.launchBrowsingApp();
-                } else {
-                    replyPagerAdapter.onSearch(s, true);
-                }
+                replyPagerAdapter.onSearch(s, true);
                 return true;
             }
         });

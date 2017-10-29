@@ -141,6 +141,7 @@ public class ReplyListFragment extends BaseFragment implements ReplyListView, Re
     }
 
     private void initializeRecyclerView() {
+        refreshLayout.setColorSchemeResources(R.color.colorPrimary);
         refreshLayout.setOnRefreshListener(() -> replyListPresenter.requestRefreshData());
         searchRecycler.setLayoutManager(new LinearLayoutManager(getActivity()));
         searchRecycler.setAdapter(replyListAdapter);

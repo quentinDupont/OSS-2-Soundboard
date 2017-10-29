@@ -42,6 +42,8 @@ public class ContentRepositoryImpl implements ContentRepository {
                     List<Reply> replyList = databaseManager.getReplyWithSearch(search, fromFavorite);
                     if (sharedPrefManager.getReplySort() == null || sharedPrefManager.getReplySort().equals(context.getString(R.string.alphabetical_order))) {
                         Collections.sort(replyList, (r1, r2) -> r1.getName().compareTo(r2.getName()));
+                    } else if (sharedPrefManager.getReplySort().equals(context.getString(R.string.movie_order))) {
+                        Collections.sort(replyList, (r1, r2) -> r1.getTimestamp() - r2.getTimestamp());
                     } else if (sharedPrefManager.getReplySort().equals(context.getString(R.string.random_order))) {
                         Collections.shuffle(replyList);
                     }
@@ -74,6 +76,8 @@ public class ContentRepositoryImpl implements ContentRepository {
             List<Reply> replyList = databaseManager.getAllReply(fromFavorite);
             if (sharedPrefManager.getReplySort() == null || sharedPrefManager.getReplySort().equals(context.getString(R.string.alphabetical_order))) {
                 Collections.sort(replyList, (r1, r2) -> r1.getName().compareTo(r2.getName()));
+            } else if (sharedPrefManager.getReplySort().equals(context.getString(R.string.movie_order))) {
+                Collections.sort(replyList, (r1, r2) -> r1.getTimestamp() - r2.getTimestamp());
             } else if (sharedPrefManager.getReplySort().equals(context.getString(R.string.random_order))) {
                 Collections.shuffle(replyList);
             }
