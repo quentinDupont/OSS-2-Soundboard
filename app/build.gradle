@@ -1,14 +1,14 @@
 apply plugin: 'com.android.application'
-apply plugin: 'com.neenbedankt.android-apt'
-apply plugin: 'me.tatarka.retrolambda'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
+apply plugin: 'kotlin-android-extensions'
 
 android {
-    compileSdkVersion 26
-    buildToolsVersion "26.0.0"
+    compileSdkVersion Versions.COMPILE_SDK
     defaultConfig {
         applicationId "fr.legrand.oss117soundboard"
-        minSdkVersion 21
-        targetSdkVersion 26
+        minSdkVersion Versions.MIN_SDK
+        targetSdkVersion Versions.TARGET_SDK
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -19,44 +19,32 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
-    }
 }
-def dbflow_version = "4.1.1"
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile 'com.android.support:appcompat-v7:26.1.0'
-    compile 'com.android.support:cardview-v7:26.1.0'
-    compile 'com.android.support:recyclerview-v7:26.1.0'
-    compile 'com.android.support:design:26.1.0'
-    compile 'com.android.support:support-v13:26.1.0'
+    implementation Libraries.KOTLIN_STDLIB
+    implementation Libraries.SUPPORT
+    implementation Libraries.ARCH_COMPONENTS
+    implementation Libraries.KTX
 
-    compile 'com.google.code.gson:gson:2.8.0'
-    compile 'com.github.bumptech.glide:glide:4.1.1'
-    apt 'com.github.bumptech.glide:compiler:4.1.1'
+    implementation Libraries.GSON
+    implementation Libraries.GLIDE
 
-    compile 'com.jakewharton:butterknife:8.8.1'
-    apt 'com.jakewharton:butterknife-compiler:8.8.1'
+    implementation Libraries.DAGGER_ANDROID
+    kapt Libraries.DAGGER_ANDROID_PROCESSORS
 
-    compile 'com.google.dagger:dagger-android:2.11'
-    apt 'com.google.dagger:dagger-compiler:2.11'
+    implementation Libraries.TIMBER
+    implementation Libraries.RX_JAVA_2
+    implementation Libraries.RX_KOTLIN
 
-    compile 'io.reactivex.rxjava2:rxandroid:2.0.1'
-    compile 'io.reactivex.rxjava2:rxjava:2.1.3'
 
-    compile 'com.github.hotchemi:permissionsdispatcher:3.0.1'
-    apt 'com.github.hotchemi:permissionsdispatcher-processor:3.0.1'
+    implementation Libraries.PERMISSIONS_DISPATCHER
+    kapt Libraries.PERMISSIONS_DISPATCHER_PROCESSOR
 
-    compile 'com.cocosw:favor:0.2.0@aar'
+    implementation Libraries.FAVOR
 
-    apt "com.github.Raizlabs.DBFlow:dbflow-processor:${dbflow_version}"
-    compile "com.github.Raizlabs.DBFlow:dbflow-core:${dbflow_version}"
-    compile "com.github.Raizlabs.DBFlow:dbflow:${dbflow_version}"
-    compile "com.github.Raizlabs.DBFlow:dbflow-rx2:${dbflow_version}"
+    implementation Libraries.DBFLOW
+    kapt Libraries.DBFLOW_PROCESSOR
 
-    compile 'com.google.android.exoplayer:exoplayer-core:r2.5.3'
+    implementation Libraries.EXOPLAYER
 }
