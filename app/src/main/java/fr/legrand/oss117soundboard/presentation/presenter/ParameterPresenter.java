@@ -9,7 +9,7 @@ import fr.legrand.oss117soundboard.presentation.component.MediaPlayerComponent;
 import fr.legrand.oss117soundboard.presentation.navigator.listener.BaseNavigatorListener;
 import fr.legrand.oss117soundboard.presentation.navigator.listener.MainNavigatorListener;
 import fr.legrand.oss117soundboard.presentation.ui.view.viewinterface.ParameterView;
-import fr.legrand.oss117soundboard.presentation.ui.view.viewmodel.ReplyViewModel;
+import fr.legrand.oss117soundboard.presentation.ui.reply.item.ReplyViewData;
 import io.reactivex.CompletableObserver;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -128,7 +128,7 @@ public class ParameterPresenter implements BasePresenter {
 
                     @Override
                     public void onNext(Reply reply) {
-                        parameterView.updateMostListenedReply(new ReplyViewModel(reply));
+                        parameterView.updateMostListenedReply(new ReplyViewData(reply));
                     }
 
                     @Override

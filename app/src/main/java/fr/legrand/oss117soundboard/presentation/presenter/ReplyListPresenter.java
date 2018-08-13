@@ -8,11 +8,10 @@ import javax.inject.Inject;
 import fr.legrand.oss117soundboard.data.entity.Reply;
 import fr.legrand.oss117soundboard.data.repository.ContentRepository;
 import fr.legrand.oss117soundboard.presentation.component.MediaPlayerComponent;
-import fr.legrand.oss117soundboard.presentation.di.PerFragment;
 import fr.legrand.oss117soundboard.presentation.navigator.listener.BaseNavigatorListener;
 import fr.legrand.oss117soundboard.presentation.navigator.listener.MainNavigatorListener;
 import fr.legrand.oss117soundboard.presentation.ui.view.viewinterface.ReplyListView;
-import fr.legrand.oss117soundboard.presentation.ui.view.viewmodel.ReplyViewModel;
+import fr.legrand.oss117soundboard.presentation.ui.reply.item.ReplyViewData;
 import io.reactivex.CompletableObserver;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -22,7 +21,6 @@ import io.reactivex.schedulers.Schedulers;
 /**
  * Created by Benjamin on 30/09/2017.
  */
-@PerFragment
 public class ReplyListPresenter implements BasePresenter {
 
     private ReplyListView replyListView;
@@ -76,12 +74,12 @@ public class ReplyListPresenter implements BasePresenter {
                         if (replies.isEmpty()) {
                             replyListView.displayPlaceholder();
                         } else {
-                            List<ReplyViewModel> replyViewModelList = new ArrayList<>();
+                            List<ReplyViewData> replyViewDataList = new ArrayList<>();
                             for (Reply reply : replies) {
-                                replyViewModelList.add(new ReplyViewModel(reply));
+                                replyViewDataList.add(new ReplyViewData(reply));
                             }
                             replyListView.displayReplyList();
-                            replyListView.updateSearchReplyList(replyViewModelList);
+                            replyListView.updateSearchReplyList(replyViewDataList);
                         }
                     }
 
@@ -109,12 +107,12 @@ public class ReplyListPresenter implements BasePresenter {
                         if (replies.isEmpty()) {
                             replyListView.displayPlaceholder();
                         } else {
-                            List<ReplyViewModel> replyViewModelList = new ArrayList<>();
+                            List<ReplyViewData> replyViewDataList = new ArrayList<>();
                             for (Reply reply : replies) {
-                                replyViewModelList.add(new ReplyViewModel(reply));
+                                replyViewDataList.add(new ReplyViewData(reply));
                             }
                             replyListView.displayReplyList();
-                            replyListView.updateSearchReplyList(replyViewModelList);
+                            replyListView.updateSearchReplyList(replyViewDataList);
                         }
                     }
 
@@ -139,7 +137,7 @@ public class ReplyListPresenter implements BasePresenter {
 
                     @Override
                     public void onNext(Reply reply) {
-                        replyListView.updateFavoriteReply(new ReplyViewModel(reply));
+                        replyListView.updateFavoriteReply(new ReplyViewData(reply));
                         mainNavigatorListener.updateAllLayout();
                     }
 

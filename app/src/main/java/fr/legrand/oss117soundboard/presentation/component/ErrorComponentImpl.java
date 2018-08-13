@@ -7,7 +7,7 @@ import android.widget.Toast;
 import javax.inject.Inject;
 
 import fr.legrand.oss117soundboard.R;
-import fr.legrand.oss117soundboard.presentation.ui.activity.BaseActivity;
+import fr.legrand.oss117soundboard.presentation.ui.base.BaseActivity;
 
 /**
  * Created by Benjamin on 17/10/2017.

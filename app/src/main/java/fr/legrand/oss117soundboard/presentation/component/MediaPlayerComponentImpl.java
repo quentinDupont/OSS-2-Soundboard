@@ -27,15 +27,13 @@ import javax.inject.Inject;
 
 import fr.legrand.oss117soundboard.data.entity.RunningPlayer;
 import fr.legrand.oss117soundboard.data.repository.ContentRepository;
-import fr.legrand.oss117soundboard.presentation.di.PerActivity;
-import fr.legrand.oss117soundboard.presentation.ui.activity.BaseActivity;
+import fr.legrand.oss117soundboard.presentation.ui.base.BaseActivity;
 import io.reactivex.Completable;
 
 /**
  * Created by Benjamin on 30/09/2017.
  */
 
-@PerActivity
 public class MediaPlayerComponentImpl implements MediaPlayerComponent {
 
     private static final int MULTI_LISTEN_NUMBER_LIMIT = 8;

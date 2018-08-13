@@ -4,7 +4,6 @@ import javax.inject.Inject;
 
 import fr.legrand.oss117soundboard.data.repository.ContentRepository;
 import fr.legrand.oss117soundboard.presentation.component.MediaPlayerComponent;
-import fr.legrand.oss117soundboard.presentation.di.PerActivity;
 import fr.legrand.oss117soundboard.presentation.ui.view.viewinterface.MainView;
 import io.reactivex.CompletableObserver;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -15,7 +14,6 @@ import io.reactivex.schedulers.Schedulers;
  * Created by Benjamin on 30/09/2017.
  */
 
-@PerActivity
 public class MainPresenter implements BasePresenter {
 
     private ContentRepository contentRepository;

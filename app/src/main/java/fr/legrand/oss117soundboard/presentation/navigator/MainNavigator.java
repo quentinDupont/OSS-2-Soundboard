@@ -7,13 +7,11 @@ import android.net.Uri;
 import javax.inject.Inject;
 
 import fr.legrand.oss117soundboard.R;
-import fr.legrand.oss117soundboard.presentation.di.PerActivity;
-import fr.legrand.oss117soundboard.presentation.ui.activity.BaseActivity;
+import fr.legrand.oss117soundboard.presentation.ui.base.BaseActivity;
 
 /**
  * Created by Benjamin on 30/09/2017.
  */
-@PerActivity
 public class MainNavigator implements BaseNavigator {
 
     private FragmentManager fragmentManager;
