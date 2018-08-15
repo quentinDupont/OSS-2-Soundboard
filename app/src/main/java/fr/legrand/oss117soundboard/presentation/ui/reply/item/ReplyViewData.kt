@@ -10,7 +10,14 @@ data class ReplyViewData(private val reply: Reply) {
 
     var isExpanded: Boolean = false
 
-    val formattedDescription = String.format("%s%s%s", "\"", reply.description, "\"")
+    fun getFormattedDescription() = String.format("%s%s%s", "\"", reply.description, "\"")
 
-    val mostListenedText = String.format("%1s (%2d)", reply.name, reply.listenCount)
+    fun getMostListenedText() = String.format("%1s (%2d)", reply.name, reply.listenCount)
+
+    fun getId() = reply.id
+
+    fun isFavorite() = reply.isFavorite
+
+    fun getDisplayName() = reply.name
+
 }

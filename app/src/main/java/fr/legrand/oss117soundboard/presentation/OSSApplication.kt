@@ -7,6 +7,7 @@ import com.raizlabs.android.dbflow.config.FlowManager
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasActivityInjector
+import fr.legrand.oss117soundboard.presentation.di.DaggerApplicationComponent
 
 import javax.inject.Inject
 

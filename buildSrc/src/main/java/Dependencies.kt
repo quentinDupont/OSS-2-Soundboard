@@ -32,7 +32,6 @@ object Versions {
     const val GLIDE = "4.6.1"
     const val MATERIAL_DIALOG = "0.9.6.0"
     const val TIMBER = "4.7.0"
-    const val FAVOR = "0.2.0"
     const val EXOPLAYER = "2.8.3"
     const val PERMISSIONS_DISPATCHER = "3.3.1"
 }
@@ -87,7 +86,6 @@ object Libraries {
     const val MATERIAL_DIALOG = "com.afollestad.material-dialogs:core:${Versions.MATERIAL_DIALOG}"
 
     const val TIMBER = "com.jakewharton.timber:timber:${Versions.TIMBER}"
-    const val FAVOR = "com.cocosw:favor:${Versions.FAVOR}@aar"
     const val EXOPLAYER = "com.google.android.exoplayer:exoplayer:${Versions.EXOPLAYER}"
     const val PERMISSIONS_DISPATCHER = "com.github.hotchemi:permissionsdispatcher:${Versions.PERMISSIONS_DISPATCHER}"
     const val PERMISSIONS_DISPATCHER_PROCESSOR = "com.github.hotchemi:permissionsdispatcher-processor:${Versions.PERMISSIONS_DISPATCHER}"
