@@ -62,7 +62,7 @@ class MediaPlayerComponentImpl @Inject constructor(
     override fun isPlayerCurrentlyRunning() = runningMediaPlayerList.isNotEmpty()
 
     private fun releaseRunningPlayerById(mediaId: Int) {
-        releaseRunningPlayer(runningMediaPlayerList.single { it.mediaId == mediaId })
+        releaseRunningPlayer(runningMediaPlayerList.first { it.mediaId == mediaId })
     }
 
     private fun releaseRunningPlayer(player: RunningPlayer) {

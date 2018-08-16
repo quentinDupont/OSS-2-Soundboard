@@ -24,9 +24,6 @@ class MainViewModel @Inject constructor(
         initAllReply()
     }
 
-    fun releaseRunningPlayers() {
-        mediaPlayerComponent.releaseAllRunningPlayer()
-    }
 
     private fun initAllReply() {
         if (!replyAlreadyLoaded) {
@@ -38,5 +35,14 @@ class MainViewModel @Inject constructor(
                         replyAlreadyLoaded = false
                     })
         }
+    }
+
+    fun releaseRunningPlayers() {
+        mediaPlayerComponent.releaseAllRunningPlayer()
+    }
+
+    override fun onCleared() {
+        super.onCleared()
+        releaseRunningPlayers()
     }
 }

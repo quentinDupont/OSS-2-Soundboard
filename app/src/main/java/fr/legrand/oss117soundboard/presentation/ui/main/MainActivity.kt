@@ -71,7 +71,6 @@ class MainActivity : BaseVMActivity<MainViewModel>() {
 
     override fun onPause() {
         super.onPause()
-        viewModel.releaseRunningPlayers()
     }
 
 
