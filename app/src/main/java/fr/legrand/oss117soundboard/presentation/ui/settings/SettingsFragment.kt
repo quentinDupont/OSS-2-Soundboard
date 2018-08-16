@@ -1,10 +1,12 @@
 package fr.legrand.oss117soundboard.presentation.ui.settings
 
+import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.view.View
 import fr.legrand.oss117soundboard.R
 import fr.legrand.oss117soundboard.presentation.extensions.observeSafe
 import fr.legrand.oss117soundboard.presentation.ui.base.BaseVMFragment
+import fr.legrand.oss117soundboard.presentation.ui.main.ReplySharedViewModel
 
 /**
  * Created by Benjamin on 17/10/2017.
@@ -15,13 +17,21 @@ class SettingsFragment : BaseVMFragment<SettingsViewModel>() {
 
     override val viewModelClass = SettingsViewModel::class
 
+    private lateinit var sharedViewModel: ReplySharedViewModel
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        sharedViewModel = ViewModelProviders.of(activity!!, viewModelFactory)[ReplySharedViewModel::class.java]
+
+        sharedViewModel.replyUpdated.observeSafe(this){
+            viewModel.updateAllReplyData()
+        }
         viewModel.mostListenedReply.observeSafe(this){
 
         }
         viewModel.replySort.observeSafe(this){
-
+            sharedViewModel.replyUpdated.postValue(true)
         }
         viewModel.totalReplyTime.observeSafe(this){
 

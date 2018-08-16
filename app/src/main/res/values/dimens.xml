@@ -5,8 +5,8 @@
     <dimen name="toolbar_title_size">20sp</dimen>
     <dimen name="placeholder_text_size">20sp</dimen>
     <dimen name="toolbar_icon_padding">12dp</dimen>
-    <dimen name="card_view_margin_top_bottom">4dp</dimen>
-    <dimen name="card_view_margin_side">8dp</dimen>
+    <dimen name="card_view_margin_top_bottom">8dp</dimen>
+    <dimen name="card_view_margin_side">16dp</dimen>
     <dimen name="card_view_padding">8dp</dimen>
     <dimen name="search_result_text_margin">8dp</dimen>
     <dimen name="favorite_indicator_elevation">4dp</dimen>

@@ -22,7 +22,7 @@ constructor() : DatabaseManager {
 
     override fun getReplyWithSearch(search: String, fromFavorite: Boolean): List<Reply> {
         val searchOperator = OperatorGroup.clause().and(Reply_Table.description.like(String.format("%s%s%s", "%", search, "%")))
-                .or(Reply_Table.name.like(String.format("%1%s%s", "%", search, "%")))
+                .or(Reply_Table.name.like(String.format("%s%s%s", "%", search, "%")))
         return SQLite.select().from(Reply::class.java)
                 .where(searchOperator)
                 .and(Reply_Table.isFavorite.`is`(fromFavorite))

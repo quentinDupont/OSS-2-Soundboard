@@ -1,5 +1,6 @@
 package fr.legrand.oss117soundboard.presentation.ui.reply
 
+import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
@@ -9,6 +10,7 @@ import fr.legrand.oss117soundboard.presentation.extensions.observeSafe
 import fr.legrand.oss117soundboard.presentation.extensions.setToGrayScale
 import fr.legrand.oss117soundboard.presentation.extensions.show
 import fr.legrand.oss117soundboard.presentation.ui.base.BaseVMFragment
+import fr.legrand.oss117soundboard.presentation.ui.main.ReplySharedViewModel
 import fr.legrand.oss117soundboard.presentation.ui.reply.ui.ReplyListAdapter
 import kotlinx.android.synthetic.main.fragment_reply_list.*
 import javax.inject.Inject
@@ -24,16 +26,30 @@ class ReplyListFragment : BaseVMFragment<ReplyListViewModel>() {
     @Inject
     lateinit var replyListAdapter: ReplyListAdapter
 
+    private lateinit var sharedViewModel: ReplySharedViewModel
+
     override fun getLayoutId() = R.layout.fragment_reply_list
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        sharedViewModel = ViewModelProviders.of(activity!!, viewModelFactory)[ReplySharedViewModel::class.java]
+
+        viewModel.favorite = arguments?.getBoolean(FAVORITE_KEY) ?: false
+
         initializeRecyclerView()
 
         fragment_reply_list_placeholder_image.setToGrayScale()
 
-        arguments?.getBoolean(FAVORITE_KEY)?.let {
-            viewModel.getAllReply(it)
+        sharedViewModel.searchRequested.observeSafe(this) {
+            viewModel.updateSearch(it)
+            viewModel.getAllReply()
+        }
+        sharedViewModel.replyUpdated.observeSafe(this) {
+            viewModel.getAllReply()
+        }
+
+        viewModel.replyUpdated.observeSafe(this) {
+            sharedViewModel.onReplyUpdated()
         }
 
         viewModel.replyListLiveData.observeSafe(this) {
@@ -64,9 +80,7 @@ class ReplyListFragment : BaseVMFragment<ReplyListViewModel>() {
     private fun initializeRecyclerView() {
         fragment_reply_list_refresh_layout.setColorSchemeResources(R.color.colorPrimary)
         fragment_reply_list_refresh_layout.setOnRefreshListener {
-            arguments?.getBoolean(FAVORITE_KEY)?.let {
-                viewModel.getAllReply(it)
-            }
+            viewModel.getAllReply()
         }
         fragment_reply_list_recycler.layoutManager = LinearLayoutManager(activity)
         fragment_reply_list_recycler.adapter = replyListAdapter

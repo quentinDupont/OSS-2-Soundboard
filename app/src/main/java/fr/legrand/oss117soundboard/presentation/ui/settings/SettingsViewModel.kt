@@ -52,6 +52,11 @@ class SettingsViewModel @Inject constructor(
         contentRepository.updateReplySort(newSort).subscribeOn(Schedulers.io()).subscribeBy(onComplete = { replySort.postValue(newSort) }, onError = { it.printStackTrace() })
     }
 
+    fun updateAllReplyData(){
+        getMostListenedReply()
+        getTotalReplyTime()
+    }
+
     private fun checkMultiListenEnabled() {
         contentRepository.multiListenEnabled().subscribeOn(Schedulers.io()).subscribeBy(onNext = { multiListenEnabled.postValue(it) }, onError = { it.printStackTrace() })
     }
