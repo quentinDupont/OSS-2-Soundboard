@@ -7,6 +7,7 @@ import fr.legrand.oss117soundboard.R
 import fr.legrand.oss117soundboard.presentation.extensions.observeSafe
 import fr.legrand.oss117soundboard.presentation.ui.base.BaseVMFragment
 import fr.legrand.oss117soundboard.presentation.ui.main.ReplySharedViewModel
+import kotlinx.android.synthetic.main.fragment_settings.*
 
 /**
  * Created by Benjamin on 17/10/2017.
@@ -24,21 +25,24 @@ class SettingsFragment : BaseVMFragment<SettingsViewModel>() {
 
         sharedViewModel = ViewModelProviders.of(activity!!, viewModelFactory)[ReplySharedViewModel::class.java]
 
-        sharedViewModel.replyUpdated.observeSafe(this){
+
+
+        sharedViewModel.replyUpdated.observeSafe(this) {
             viewModel.updateAllReplyData()
         }
-        viewModel.mostListenedReply.observeSafe(this){
-
+        viewModel.mostListenedReply.observeSafe(this) {
+            fragment_settings_most_listened_reply.text = it.getMostListenedText()
         }
-        viewModel.replySort.observeSafe(this){
+        viewModel.replySort.observeSafe(this) {
             sharedViewModel.replyUpdated.postValue(true)
+            fragment_settings_reply_sort.text = it
         }
-        viewModel.totalReplyTime.observeSafe(this){
-
+        viewModel.totalReplyTime.observeSafe(this) {
+            fragment_settings_total_reply_time.text = getString(R.string.total_reply_time_text, it.first, it.second, it.third)
         }
-        viewModel.viewState.observeSafe(this){
-            if (it.mostListenedReplyAvailable){
-//                most_listened.summary = getString(R.string.no_listened_reply)
+        viewModel.viewState.observeSafe(this) {
+            if (!it.mostListenedReplyAvailable) {
+                fragment_settings_most_listened_reply.text = getString(R.string.no_listened_reply)
             }
         }
     }
